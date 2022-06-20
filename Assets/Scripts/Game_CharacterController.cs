@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using FishNet;
 using FishNet.Object;
 using FishNet.Object.Prediction;
@@ -35,10 +34,10 @@ public class Game_CharacterController : NetworkBehaviour
     private float jumpHeight;
     [SerializeField]
     private Transform meshTransform;
-    [SerializeField]
-    private InputActionReference movementControl;
-    [SerializeField]
-    private InputActionReference jumpControl;
+    //[SerializeField]
+    //private InputActionReference movementControl;
+    //[SerializeField]
+    //private InputActionReference jumpControl;
     #endregion
 
     #region Private.
@@ -59,40 +58,35 @@ public class Game_CharacterController : NetworkBehaviour
     private void Start()
     {
         cameraController = GetComponent<CameraController>();
-        jumpControl.action.started += context =>
-        {
-            jumpPressed = true;
-            jumpReleased = false;
-        };
-        jumpControl.action.canceled += context =>
-        {
-            jumpPressed = false;
-            jumpReleased = true;
-        };
+        //jumpControl.action.started += context =>
+        //{
+        //    jumpPressed = true;
+        //    jumpReleased = false;
+        //};
+        //jumpControl.action.canceled += context =>
+        //{
+        //    jumpPressed = false;
+        //    jumpReleased = true;
+        //};
     }
 
-    private void OnEnable()
-    {
-        movementControl.action.Enable();
-        jumpControl.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        movementControl.action.Disable();
-        jumpControl.action.Disable();
-    }
+    //private void OnEnable()
+    //{
+    //    movementControl.action.Enable();
+    //    jumpControl.action.Enable();
+    //}
+    //
+    //private void OnDisable()
+    //{
+    //    movementControl.action.Disable();
+    //    jumpControl.action.Disable();
+    //}
 
     private void FixedUpdate()
     {
         if (meshTransform != null && moveDir != Vector3.zero)
         {
             meshTransform.transform.rotation = Quaternion.LookRotation(moveDir);
-        }
-
-        if (jumpControl.action.WasReleasedThisFrame())
-        {
-            jumpPressed = false;
         }
     }
 
@@ -129,9 +123,9 @@ public class Game_CharacterController : NetworkBehaviour
         md = default;
 
         Vector3 move = Vector3.zero;
-        if (movementControl != null)
+        if (true)
         {
-            Vector3 movement = movementControl.action.ReadValue<Vector2>();
+            Vector2 movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
             if (movement.x != 0f || movement.y != 0f)
             {
@@ -147,7 +141,7 @@ public class Game_CharacterController : NetworkBehaviour
         }
 
         float velY = 0;
-        if (jumpControl != null && jumpPressed && !jumpReleased && _characterController.isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
         {
             velY = jumpHeight;
         }
