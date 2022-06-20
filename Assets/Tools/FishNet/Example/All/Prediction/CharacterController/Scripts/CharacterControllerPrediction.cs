@@ -18,7 +18,6 @@ namespace FishNet.Example.Prediction.CharacterControllers
         public struct MoveData
         {
             public float Horizontal;
-            public float Forward;
             public float Vertical;
         }
         public struct ReconcileData
@@ -39,8 +38,7 @@ namespace FishNet.Example.Prediction.CharacterControllers
         #endregion
 
         #region Private.
-        protected CharacterController _characterController;
-        private Vector3 playerVelocity = Vector3.zero;
+        private CharacterController _characterController;
         #endregion
 
         private void Awake()
@@ -51,7 +49,7 @@ namespace FishNet.Example.Prediction.CharacterControllers
 
         public override void OnStartClient()
         {
-            base.OnStartClient();            
+            base.OnStartClient();
             _characterController.enabled = (base.IsServer || base.IsOwner);
         }
 
@@ -79,12 +77,12 @@ namespace FishNet.Example.Prediction.CharacterControllers
             }
         }
 
-        protected virtual void CheckInput(out MoveData md)
+        private void CheckInput(out MoveData md)
         {
             md = default;
 
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
+            float horizontal = 0;
+            float vertical = 0;
 
             if (horizontal == 0f && vertical == 0f)
                 return;
@@ -92,32 +90,15 @@ namespace FishNet.Example.Prediction.CharacterControllers
             md = new MoveData()
             {
                 Horizontal = horizontal,
-                Forward = vertical
+                Vertical = vertical
             };
         }
 
         [Replicate]
         private void Move(MoveData md, bool asServer, bool replaying = false)
         {
-            bool playerGrounded = _characterController.isGrounded;
-
-            Vector3 move = new Vector3(md.Horizontal, 0, md.Forward);
+            Vector3 move = new Vector3(md.Horizontal, Physics.gravity.y, md.Vertical);
             _characterController.Move(move * _moveRate * (float)base.TimeManager.TickDelta);
-
-            if(playerGrounded && playerVelocity.y < 0)
-            {
-                playerVelocity.y = 0;
-            } else
-            {
-                playerVelocity.y += Physics.gravity.y * (float)base.TimeManager.TickDelta;
-            }
-            playerVelocity.y += md.Vertical * (float)base.TimeManager.TickDelta;
-            if (md.Vertical != 0)
-            {
-                Debug.Log("Player Vel: " + md.Vertical);
-            }
-
-            _characterController.Move(playerVelocity * (float)base.TimeManager.TickDelta);
         }
 
         [Reconcile]
