@@ -125,11 +125,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3395400706084628998}
   - component: {fileID: 2474816393720128712}
+  - component: {fileID: 802329380654500943}
+  - component: {fileID: 214397477282928973}
+  - component: {fileID: 6681760362982913237}
   - component: {fileID: 8170170504807459358}
   - component: {fileID: 1596075502663024630}
-  - component: {fileID: 802329380654500943}
   - component: {fileID: 1957238344405055465}
-  - component: {fileID: 214397477282928973}
   - component: {fileID: 8894119393950605857}
   m_Layer: 0
   m_Name: PlayerController
@@ -169,6 +170,57 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &802329380654500943
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435745274448372506}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &214397477282928973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435745274448372506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56391e90a91e3f64e84af6dbc2405f4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 8170170504807459358}
+  _networkObjectCache: {fileID: 8170170504807459358}
+  _moveRate: 10
+  jumpHeight: 200
+  meshTransform: {fileID: 8465046397302232163}
+  movementControl: {fileID: -2525945700075891898, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
+  jumpControl: {fileID: -1611229938920668071, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
+  heldItem: {fileID: 0}
+--- !u!114 &6681760362982913237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435745274448372506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c565855b634e2e1468b0d0937c2fab8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8170170504807459358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,24 +274,6 @@ MonoBehaviour:
   _rigidbody2d: {fileID: 0}
   _networkTransform: {fileID: 8894119393950605857}
   _predictionRatio: 0
---- !u!143 &802329380654500943
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4435745274448372506}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1957238344405055465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,26 +291,6 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8170170504807459358}
   followSpeed: 10
   desiredSmoothTime: 0.01
---- !u!114 &214397477282928973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4435745274448372506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56391e90a91e3f64e84af6dbc2405f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 8170170504807459358}
-  _networkObjectCache: {fileID: 8170170504807459358}
-  _moveRate: 10
-  jumpHeight: 200
-  meshTransform: {fileID: 8465046397302232163}
-  movementControl: {fileID: -2525945700075891898, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
-  jumpControl: {fileID: -1611229938920668071, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
 --- !u!114 &8894119393950605857
 MonoBehaviour:
   m_ObjectHideFlags: 0

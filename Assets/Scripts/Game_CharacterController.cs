@@ -42,7 +42,7 @@ public class Game_CharacterController : NetworkBehaviour
     #endregion
 
     #region Private.
-        protected CharacterController _characterController;
+    protected CharacterController _characterController;
         private bool jumpPressed;
         private bool jumpReleased = true;
         private CameraController cameraController;
@@ -85,9 +85,9 @@ public class Game_CharacterController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (meshTransform != null && moveDir != Vector3.zero)
+        if (moveDir != Vector3.zero)
         {
-            meshTransform.transform.rotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.LookRotation(moveDir);
         }
     }
 
