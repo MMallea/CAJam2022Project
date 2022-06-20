@@ -4,22 +4,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPlayer : NetworkBehaviour
+namespace WV
 {
-    [SerializeField] private GameObject playerPrefab;
-
-    public override void OnStartClient()
+    public class SpawnPlayer : NetworkBehaviour
     {
-        base.OnStartClient();
+        [SerializeField] private GameObject playerPrefab;
 
-        PlayerSpawn();
-    }
-    
-    [ServerRpc(RequireOwnership = false)]
-    private void PlayerSpawn(NetworkConnection client = null)
-    {
-        GameObject gameObject = Instantiate(playerPrefab);
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
 
-        Spawn(gameObject, client);
+            PlayerSpawn();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PlayerSpawn(NetworkConnection client = null)
+        {
+            GameObject gameObject = Instantiate(playerPrefab);
+
+            Spawn(gameObject, client);
+        }
     }
 }

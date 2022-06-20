@@ -2,54 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+namespace WV
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private Vector2 _rotationMinMax = new Vector2(-60, 60);
-    private Vector3 currentRotation;
-    private Vector3 smoothVelocity = Vector3.zero;
-
-    [SerializeField] private float distanceFromTarget = 3f;
-    private float mouseSensitivity = 1f;
-    private float smoothTime = 0.2f;
-    private float _rotationX, _rotationY;
-
-    private void Awake()
+    public class CameraController : MonoBehaviour
     {
-        FirstObjectNotifier.OnFirstObjectSpawned += FirstObjectNotifier_OnFirstObjectSpawned;
-    }
+        [SerializeField] private Transform target;
+        [SerializeField] private Vector2 _rotationMinMax = new Vector2(-60, 60);
+        private Vector3 currentRotation;
+        private Vector3 smoothVelocity = Vector3.zero;
 
-    private void FirstObjectNotifier_OnFirstObjectSpawned(Transform obj)
-    {
-        Camera camera = GetComponent<Camera>();
+        [SerializeField] private float distanceFromTarget = 3f;
+        private float mouseSensitivity = 1f;
+        private float smoothTime = 0.2f;
+        private float _rotationX, _rotationY;
 
-        camera.transform.LookAt(obj);
-    }
+        private void Awake()
+        {
+            FirstObjectNotifier.OnFirstObjectSpawned += FirstObjectNotifier_OnFirstObjectSpawned;
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        private void FirstObjectNotifier_OnFirstObjectSpawned(Transform obj)
+        {
+            Camera camera = GetComponent<Camera>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        target = FindObjectOfType<BasicMovement>().gameObject.transform;
+            camera.transform.LookAt(obj);
+        }
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        // Start is called before the first frame update
+        void Start()
+        {
 
-        _rotationX += mouseX;
-        _rotationY += mouseY;
+        }
 
-        _rotationX = Mathf.Clamp(_rotationX, _rotationMinMax.x, _rotationMinMax.y);
+        // Update is called once per frame
+        void Update()
+        {
+            target = FindObjectOfType<BasicMovement>().gameObject.transform;
 
-        Vector3 nextRotation = new Vector3(_rotationX, _rotationY);
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        currentRotation = Vector3.SmoothDamp(currentRotation, nextRotation, ref smoothVelocity, smoothTime);
-        transform.localEulerAngles = currentRotation;
+            _rotationX += mouseX;
+            _rotationY += mouseY;
 
-        transform.position = target.position - transform.forward * distanceFromTarget;
+            _rotationX = Mathf.Clamp(_rotationX, _rotationMinMax.x, _rotationMinMax.y);
+
+            Vector3 nextRotation = new Vector3(_rotationX, _rotationY);
+
+            currentRotation = Vector3.SmoothDamp(currentRotation, nextRotation, ref smoothVelocity, smoothTime);
+            transform.localEulerAngles = currentRotation;
+
+            transform.position = target.position - transform.forward * distanceFromTarget;
+        }
     }
 }

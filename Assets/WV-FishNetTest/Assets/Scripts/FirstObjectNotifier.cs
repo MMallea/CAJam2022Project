@@ -4,20 +4,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstObjectNotifier : NetworkBehaviour
+namespace WV
 {
-    public static event Action<Transform> OnFirstObjectSpawned;
-
-    public override void OnStartClient()
+    public class FirstObjectNotifier : NetworkBehaviour
     {
-        base.OnStartClient();
+        public static event Action<Transform> OnFirstObjectSpawned;
 
-        if (base.IsOwner)
+        public override void OnStartClient()
         {
-            NetworkObject nob = base.LocalConnection.FirstObject;
+            base.OnStartClient();
 
-            if (nob == base.NetworkObject)
-                OnFirstObjectSpawned?.Invoke(transform);
+            if (base.IsOwner)
+            {
+                NetworkObject nob = base.LocalConnection.FirstObject;
+
+                if (nob == base.NetworkObject)
+                    OnFirstObjectSpawned?.Invoke(transform);
+            }
         }
     }
 }

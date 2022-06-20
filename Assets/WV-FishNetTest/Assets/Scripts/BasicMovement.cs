@@ -3,45 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMovement : NetworkBehaviour
+namespace WV
 {
-    CharacterController controller;
-    [SerializeField] private Camera followCamera;
-
-    public float moveSpeed = 5f;
-    public float rotateSpeed = 10f;
-
-    // Start is called before the first frame update
-    void Start()
+    public class BasicMovement : NetworkBehaviour
     {
-        controller = GetComponent<CharacterController>();
-        followCamera = FindObjectOfType<Camera>();
-    }
+        CharacterController controller;
+        [SerializeField] private Camera followCamera;
 
-    // Update is called once per frame
-    void Update()
-    {
-        CharacterMove();
-    }
+        public float moveSpeed = 5f;
+        public float rotateSpeed = 10f;
 
-    private void CharacterMove()
-    {
-        if (!base.IsOwner)
-            return;
-
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movementInput = Quaternion.Euler(0, followCamera.transform.eulerAngles.y, 0) * new Vector3(horizontal, 0, vertical);
-        Vector3 movementDirection = movementInput.normalized;
-
-        if (movementDirection != Vector3.zero)
+        // Start is called before the first frame update
+        void Start()
         {
-            Quaternion desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotateSpeed * Time.deltaTime);
+            controller = GetComponent<CharacterController>();
+            followCamera = FindObjectOfType<Camera>();
         }
 
-        controller.Move(movementDirection * moveSpeed * Time.deltaTime);
+        // Update is called once per frame
+        void Update()
+        {
+            CharacterMove();
+        }
+
+        private void CharacterMove()
+        {
+            if (!base.IsOwner)
+                return;
+
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            Vector3 movementInput = Quaternion.Euler(0, followCamera.transform.eulerAngles.y, 0) * new Vector3(horizontal, 0, vertical);
+            Vector3 movementDirection = movementInput.normalized;
+
+            if (movementDirection != Vector3.zero)
+            {
+                Quaternion desiredRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, rotateSpeed * Time.deltaTime);
+            }
+
+            controller.Move(movementDirection * moveSpeed * Time.deltaTime);
+        }
     }
 }

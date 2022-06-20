@@ -3,24 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClientServerManager : MonoBehaviour
+namespace WV
 {
-    [SerializeField] private bool isServer;
-    //[SerializeField] private bool isHost;
-
-    private void Awake()
+    public class ClientServerManager : MonoBehaviour
     {
-        //if (isHost)
-        //{
-        //    InstanceFinder.ServerManager.StartConnection();
-        //    InstanceFinder.ClientManager.StartConnection();
-        //}
-        //else
-        //    return;
+        [SerializeField] private bool isServer;
+        //[SerializeField] private bool isHost;
 
-        if (isServer)
-            InstanceFinder.ServerManager.StartConnection();
-        else
-            InstanceFinder.ClientManager.StartConnection();
+        private void Awake()
+        {
+            //if (isHost)
+            //{
+            //    InstanceFinder.ServerManager.StartConnection();
+            //    InstanceFinder.ClientManager.StartConnection();
+            //}
+            //else
+            //    return;
+
+            if (isServer)
+                InstanceFinder.ServerManager.StartConnection();
+            else
+                InstanceFinder.ClientManager.StartConnection();
+        }
     }
 }
