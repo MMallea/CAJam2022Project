@@ -14,12 +14,23 @@ public class Game_CharacterController : CharacterControllerPrediction
     private InputActionReference movementControl;
     [SerializeField]
     private InputActionReference jumpControl;
+
+    private bool jumpPressed;
+    private bool jumpReleased = true;
     private CameraController cameraController;
     private Vector3 moveDir;
 
     private void Start()
     {
         cameraController = GetComponent<CameraController>();
+        jumpControl.action.started += context => {
+            jumpPressed = true;
+            jumpReleased = false;
+        };
+        jumpControl.action.canceled += context => {
+            jumpPressed = false;
+            jumpReleased = true;
+        };
     }
 
     private void OnEnable()
@@ -39,6 +50,11 @@ public class Game_CharacterController : CharacterControllerPrediction
         if (meshTransform != null)
         {
             meshTransform.transform.rotation = Quaternion.LookRotation(moveDir);
+        }
+
+        if(jumpControl.action.WasReleasedThisFrame())
+        {
+            jumpPressed = false;
         }
     }
 
@@ -64,8 +80,7 @@ public class Game_CharacterController : CharacterControllerPrediction
         }
 
         float velY = 0;
-        Debug.Log(jumpControl.action.triggered);
-        if(jumpControl != null && jumpControl.action.triggered)
+        if(jumpControl != null && jumpPressed && !jumpReleased && _characterController.isGrounded)
         {
             velY = jumpHeight;
         }
