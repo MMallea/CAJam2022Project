@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class GrabScript : MonoBehaviour
 {
-
+    [SerializeField]
+    private Transform handTransform;
     [SerializeField]
     private InputActionReference grabControl;
     [SerializeField]
@@ -23,6 +24,13 @@ public class GrabScript : MonoBehaviour
             else
                 UseItem();
         };
+
+        releaseControl.action.started += context => {
+            if(heldItem != null)
+            {
+                DropOffItem();
+            }
+        };
     }
 
     private void FixedUpdate()
@@ -38,7 +46,8 @@ public class GrabScript : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, 1.5f))
             {
-
+                PickUpItem item = hit.transform.GetComponent<PickUpItem>();
+                PickUpItem(item);
             }
         }
     }
@@ -49,12 +58,23 @@ public class GrabScript : MonoBehaviour
             heldItem.Use();
     }
 
-    private void PickupItem()
+    private void PickupItem(PickUpItem item)
     {
+        heldItem = item;
+        item.GetRBody().isKinematic = true;
+        item.GetRBody().velocity = Vector3.zero;
+        item.GetRBody().angularVelocity = Vector3.zero;
+
+        item.transform.SetParent(handTransform);
+        item.transform.localPosition = Vector3.zero;
+        item.transform.localEulerAngles = Vector3.zero;
     }
 
     private void DropOffItem()
     {
-
+        heldItem = null;
+        heldItem.transform.SetParent(null);
+        heldItem.GetRBody().isKinematic = false;
+        heldItem.GetRBody().AddForce(heldItem.transform.forward * 2, ForceMode.VelocityChange);
     }
 }

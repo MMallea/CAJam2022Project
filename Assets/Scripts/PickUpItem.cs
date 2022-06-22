@@ -25,4 +25,9 @@ public class PickUpItem : MonoBehaviour
     {
         useEvent?.Invoke();
     }
+
+    public Rigidbody GetRBody()
+    {
+        return rBody;
+    }
 }
