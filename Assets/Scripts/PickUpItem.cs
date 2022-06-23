@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class PickUpItem : MonoBehaviour
 {
-    public UnityEvent useEvent;
+    public UnityEvent<GameObject> useEvent;
     private Rigidbody rBody;
 
     // Start is called before the first frame update
@@ -21,9 +21,9 @@ public class PickUpItem : MonoBehaviour
         
     }
 
-    public void Use()
+    public void Use(GameObject playerObject)
     {
-        useEvent?.Invoke();
+        useEvent?.Invoke(playerObject);
     }
 
     public Rigidbody GetRBody()
