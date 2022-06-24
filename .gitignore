@@ -77,3 +77,11 @@ crashlytics-build.properties
 *.prof
 *.validationcache
 */Assets/Wwise/Editor/ProjectData/AkWwiseProjectData.asset*
+Assets/WwiseSettings.xml
+# Wwise generated
+GeneratedSoundBanks/
+GeneratedSoundBanks*
+IncrementalSoundBankData.xml
+AkWwiseProjectData.asset
+WwiseUnityIntegration_*_Src.zip
+*.wsettings
