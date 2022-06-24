@@ -69,7 +69,7 @@ public class Game_CharacterController : NetworkBehaviour
             jumpPressed = false;
             jumpReleased = true;
         };
-        audkSoundEngine = GetComponent<AkSoundEngine>();
+        
     }
 
     private void OnEnable()
