@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 2592313332794873733}
-  grabControl: {fileID: -1611229938920668071, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
+  grabControl: {fileID: -9096466019805096151, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
   releaseControl: {fileID: -1672171581575261225, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
   heldItem: {fileID: 0}
 --- !u!114 &8170170504807459358

@@ -19,7 +19,7 @@ public class GrabScript : MonoBehaviour
     {
         cameraController = GetComponent<CameraController>();
 
-        if(grabControl != null)
+        if(grabControl)
         {
             grabControl.action.started += context =>
             {
@@ -33,12 +33,22 @@ public class GrabScript : MonoBehaviour
         if(releaseControl)
         {
             releaseControl.action.started += context => {
-                if (heldItem == null)
-                {
+                if (heldItem != null)
                     DropOffItem();
-                }
             };
         }
+    }
+
+    private void OnEnable()
+    {
+        grabControl.action.Enable();
+        releaseControl.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        grabControl.action.Disable();
+        releaseControl.action.Disable();
     }
 
     private void FixedUpdate()
@@ -53,10 +63,11 @@ public class GrabScript : MonoBehaviour
             Ray ray = cameraController.GetCamMain().ViewportPointToRay(Vector3.one * 0.5f);
             RaycastHit hit;
             Debug.DrawRay(ray.origin, ray.direction, Color.red, 99f);
-            if(Physics.Raycast(ray, out hit, 1.5f))
+            if(Physics.Raycast(ray, out hit, 10f))
             {
                 PickUpItem item = hit.transform.GetComponent<PickUpItem>();
-                GrabItem(item);
+                if(item)
+                    GrabItem(item);
             }
         }
     }
@@ -81,9 +92,9 @@ public class GrabScript : MonoBehaviour
 
     private void DropOffItem()
     {
-        heldItem = null;
         heldItem.transform.SetParent(null);
         heldItem.GetRBody().isKinematic = false;
         heldItem.GetRBody().AddForce(heldItem.transform.forward * 2, ForceMode.VelocityChange);
+        heldItem = null;
     }
 }
