@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 542174208202931094}
   - component: {fileID: 774027522126547612}
   m_Layer: 6
-  m_Name: broccoli
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1204384749550859906}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.7059, y: 2.7059, z: 2.7059}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9062127722318235988}
@@ -133,6 +133,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 774027522126547612}
   _networkObjectCache: {fileID: 774027522126547612}
+  isPickedUp: 0
+  throwSpeed: 2
   parent: {fileID: 0}
   useEvent:
     m_PersistentCalls:
@@ -194,11 +196,10 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 8811746062050357693}
   - {fileID: 542174208202931094}
-  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 10.692299, y: 0.477, z: 12.843712}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    LocalScale: {x: 2.7059, y: 2.7059, z: 2.7059}
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
@@ -254,11 +255,10 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 8811746062050357693}
   - {fileID: 542174208202931094}
-  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 10.692299, y: 0.477, z: 12.843712}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 2.7059, y: 2.7059, z: 2.7059}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}

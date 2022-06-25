@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5287732553868635238}
   - component: {fileID: 135881341521344134}
-  m_Layer: 0
+  - component: {fileID: 6611669233048852604}
+  m_Layer: 6
   m_Name: Pickup_Cucumber_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,9 +25,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4767654016579253980}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.945, y: 0.477, z: 13.062552}
-  m_LocalScale: {x: 3.6163, y: 3.6163, z: 3.6163}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3441210800156671350}
@@ -48,18 +49,43 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 5686768425149916971}
   - {fileID: 8751984814264023712}
-  - {fileID: 0}
   SceneTransformProperties:
-    Position: {x: 8.945, y: 0.477, z: 13.062552}
-    Rotation: {x: 0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 3.6163, y: 3.6163, z: 3.6163}
+    Position: {x: 8.945, y: 0.714, z: 13.11272}
+    Rotation: {x: -0.19440557, y: 0, z: 0, w: 0.9809212}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0
   _sceneId: 0
-  _sceneNetworkObjects: []
+  _sceneNetworkObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 135881341521344134}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 3195000526248616628}
+--- !u!95 &6611669233048852604
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767654016579253980}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ca1946bf6f3116945a84a503ca4b1cee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9084479013564946802
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,8 +102,8 @@ GameObject:
   - component: {fileID: 5686768425149916971}
   - component: {fileID: 8751984814264023712}
   - component: {fileID: 3195000526248616628}
-  m_Layer: 0
-  m_Name: meatSausage
+  m_Layer: 6
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 9084479013564946802}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.6163, y: 3.6163, z: 3.6163}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5287732553868635238}
@@ -193,6 +219,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 3195000526248616628}
   _networkObjectCache: {fileID: 135881341521344134}
+  isPickedUp: 0
+  throwSpeed: 2
   parent: {fileID: 0}
   useEvent:
     m_PersistentCalls:
@@ -254,15 +282,20 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 5686768425149916971}
   - {fileID: 8751984814264023712}
-  - {fileID: 0}
   SceneTransformProperties:
-    Position: {x: 8.945, y: 0.477, z: 13.062552}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    Position: {x: 8.945, y: 0.714, z: 13.11272}
+    Rotation: {x: -0.19440557, y: -0, z: -0, w: 0.9809212}
+    LocalScale: {x: 3.6163, y: 3.6163, z: 3.6163}
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0
   _sceneId: 0
-  _sceneNetworkObjects: []
+  _sceneNetworkObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 135881341521344134}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 3195000526248616628}

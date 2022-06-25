@@ -37,6 +37,7 @@ public class CameraController : NetworkBehaviour
             {
                 cineCam.Follow = transform;
                 cineCam.LookAt = camTargetTransform.transform;
+                Cursor.visible = false;
             }
 
             GameObject camFollowObj = GameObject.Find("CameraFollowTarget");
