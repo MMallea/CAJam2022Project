@@ -1,9 +1,11 @@
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GrabScript : MonoBehaviour
+public class GrabScript : NetworkBehaviour
 {
     [SerializeField]
     private Transform handTransform;
@@ -11,8 +13,9 @@ public class GrabScript : MonoBehaviour
     private InputActionReference grabControl;
     [SerializeField]
     private InputActionReference releaseControl;
-    [SerializeField]
+
     private PickUpItem heldItem;
+
     private CameraController cameraController;
 
     private void Start()
@@ -62,7 +65,7 @@ public class GrabScript : MonoBehaviour
         {
             Ray ray = cameraController.GetCamMain().ViewportPointToRay(Vector3.one * 0.5f);
             RaycastHit hit;
-            Debug.DrawRay(ray.origin, ray.direction, Color.red, 99f);
+            Debug.DrawRay(ray.origin, ray.direction, Color.green, 99f);
             if(Physics.Raycast(ray, out hit, 10f))
             {
                 PickUpItem item = hit.transform.GetComponent<PickUpItem>();
@@ -81,20 +84,14 @@ public class GrabScript : MonoBehaviour
     private void GrabItem(PickUpItem item)
     {
         heldItem = item;
-        item.GetRBody().isKinematic = true;
-        item.GetRBody().velocity = Vector3.zero;
-        item.GetRBody().angularVelocity = Vector3.zero;
-
-        item.transform.SetParent(handTransform);
-        item.transform.localPosition = Vector3.zero;
-        item.transform.localEulerAngles = Vector3.zero;
+        heldItem.GiveOwnership(Owner);
+        heldItem.SetAsParent(handTransform);
     }
 
     private void DropOffItem()
     {
-        heldItem.transform.SetParent(null);
-        heldItem.GetRBody().isKinematic = false;
-        heldItem.GetRBody().AddForce(heldItem.transform.forward * 2, ForceMode.VelocityChange);
+        heldItem.RemoveParent();
+        heldItem.RemoveOwnership();
         heldItem = null;
     }
 }

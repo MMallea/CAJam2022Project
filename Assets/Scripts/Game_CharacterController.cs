@@ -6,124 +6,147 @@ using FishNet;
 using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Example.Prediction.CharacterControllers;
+using FishNet.Object.Synchronizing;
 
+[RequireComponent(typeof(ControllerInput))]
 public class Game_CharacterController : NetworkBehaviour
 {
-    #region Types.
-        public struct MoveData
-        {
-            public float Horizontal;
-            public float Forward;
-            public float Vertical;
-        }
-        public struct ReconcileData
-        {
-            public Vector3 Position;
-            public Quaternion Rotation;
-            public ReconcileData(Vector3 position, Quaternion rotation)
-            {
-                Position = position;
-                Rotation = rotation;
-            }
-        }
-        #endregion
+    //#region Types.
+    //    public struct MoveData
+    //    {
+    //        public float Horizontal;
+    //        public float Forward;
+    //        public float Vertical;
+    //    }
+    //    public struct ReconcileData
+    //    {
+    //        public Vector3 Position;
+    //        public Quaternion Rotation;
+    //        public ReconcileData(Vector3 position, Quaternion rotation)
+    //        {
+    //            Position = position;
+    //            Rotation = rotation;
+    //        }
+    //    }
+    //#endregion
+
+    #region Public.
+    [SyncVar]
+    public float health;
+    [SyncVar]
+    public Player controllingPlayer;
+    #endregion
 
     #region Serialized.
     [SerializeField]
-    private float _moveRate = 5f;
+    private float movespeed = 5f;
     [SerializeField]
     private float jumpHeight;
     [SerializeField]
+    private float gravityScale;
+    [SerializeField]
     private Transform meshTransform;
-    [SerializeField]
-    private InputActionReference movementControl;
-    [SerializeField]
-    private InputActionReference jumpControl;
     #endregion
 
     #region Private.
-    protected CharacterController _characterController;
-        private bool jumpPressed;
-        private bool jumpReleased = true;
-        private CameraController cameraController;
-        private Vector3 moveDir;
-        private Vector3 playerVelocity = Vector3.zero;
-        #endregion
+    private ControllerInput ctrlInput;
+    private CharacterController _characterController;
+    private Vector3 velocity = Vector3.zero;
+    #endregion
 
     private void Awake()
     {
-        InstanceFinder.TimeManager.OnTick += TimeManager_OnTick;
-        _characterController = GetComponent<CharacterController>();
-    }
-
-    private void Start()
-    {
-        cameraController = GetComponent<CameraController>();
-        jumpControl.action.started += context =>
-        {
-            jumpPressed = true;
-            jumpReleased = false;
-        };
-        jumpControl.action.canceled += context =>
-        {
-            jumpPressed = false;
-            jumpReleased = true;
-        };
-    }
-
-    private void OnEnable()
-    {
-        movementControl.action.Enable();
-        jumpControl.action.Enable();
-    }
-    
-    private void OnDisable()
-    {
-        movementControl.action.Disable();
-        jumpControl.action.Disable();
-    }
-
-    private void FixedUpdate()
-    {
-        if (moveDir != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(moveDir);
-        }
-    }
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        _characterController.enabled = (base.IsServer || base.IsOwner);
+        //InstanceFinder.TimeManager.OnTick += TimeManager_OnTick;
+        //_characterController = GetComponent<CharacterController>();
     }
 
     private void OnDestroy()
     {
-        if (InstanceFinder.TimeManager != null)
-            InstanceFinder.TimeManager.OnTick -= TimeManager_OnTick;
+        //if (InstanceFinder.TimeManager != null)
+        //    InstanceFinder.TimeManager.OnTick -= TimeManager_OnTick;
     }
 
-    private void TimeManager_OnTick()
+    public override void OnStartNetwork()
     {
-        if (base.IsOwner)
-        {
-            Reconciliation(default, false);
-            CheckInput(out MoveData md);
-            Move(md, false);
-        }
-        if (base.IsServer)
-        {
-            Move(default, true);
-            ReconcileData rd = new ReconcileData(transform.position, transform.rotation);
-            Reconciliation(rd, true);
+        base.OnStartNetwork();
 
-            //Reconcile mesh transform
-            ReconcileData meshRd = new ReconcileData(meshTransform.position, meshTransform.rotation);
-            Reconciliation(rd, true);
+        _characterController = GetComponent<CharacterController>();
+        ctrlInput = GetComponent<ControllerInput>();
+    }
+
+    private void Update()
+    {
+        if (!IsOwner) return;
+
+        Vector3 desiredVelocity = Vector3.zero;
+        if (ctrlInput.input != Vector2.zero)
+        {
+            desiredVelocity = Vector3.ClampMagnitude(((ctrlInput.camForward * ctrlInput.input.y) + (ctrlInput.camRight * ctrlInput.input.x)) * movespeed, movespeed);
+            desiredVelocity.y = 0;
+            transform.rotation = Quaternion.LookRotation(desiredVelocity.normalized);
+        }
+
+        velocity.x = desiredVelocity.x;
+        velocity.z = desiredVelocity.z;
+
+        if(_characterController.isGrounded)
+        {
+            velocity.y = 0.0f;
+            
+            if(ctrlInput.jump)
+            {
+                velocity.y = jumpHeight;
+                ctrlInput.HasJumped();
+            }
+
+        }
+        else
+        {
+            velocity.y += Physics.gravity.y * gravityScale * Time.deltaTime;
+        }
+
+        _characterController.Move(velocity * Time.deltaTime);
+    }
+
+    //public override void OnStartClient()
+    //{
+    //    base.OnStartClient();
+    //    _characterController.enabled = (base.IsServer || base.IsOwner);
+    //}
+
+    public void ReceiveDamage(float amount)
+    {
+        if (!IsSpawned) return;
+
+        if ((health -= amount) <= 0.0f)
+        {
+            controllingPlayer.TargetControllerKilled(Owner);
+
+            Despawn();
         }
     }
 
-    private void CheckInput(out MoveData md)
+    //private void TimeManager_OnTick()
+    //{
+    //    if (base.IsOwner)
+    //    {
+    //        Reconciliation(default, false);
+    //        CheckInput(out MoveData md);
+    //        Move(md, false);
+    //    }
+    //    if (base.IsServer)
+    //    {
+    //        Move(default, true);
+    //        ReconcileData rd = new ReconcileData(transform.position, transform.rotation);
+    //        Reconciliation(rd, true);
+    //
+    //        //Reconcile mesh transform
+    //        ReconcileData meshRd = new ReconcileData(meshTransform.position, meshTransform.rotation);
+    //        Reconciliation(rd, true);
+    //    }
+    //}
+
+    /*private void CheckInput(out MoveData md)
     {
         md = default;
 
@@ -177,12 +200,12 @@ public class Game_CharacterController : NetworkBehaviour
         }
         playerVelocity.y += md.Vertical * (float)base.TimeManager.TickDelta;
         _characterController.Move(playerVelocity * (float)base.TimeManager.TickDelta);
-    }
+    }*/
 
-    [Reconcile]
-    private void Reconciliation(ReconcileData rd, bool asServer)
-    {
-        transform.position = rd.Position;
-        transform.rotation = rd.Rotation;
-    }
+    //[Reconcile]
+    //private void Reconciliation(ReconcileData rd, bool asServer)
+    //{
+    //    transform.position = rd.Position;
+    //    transform.rotation = rd.Rotation;
+    //}
 }

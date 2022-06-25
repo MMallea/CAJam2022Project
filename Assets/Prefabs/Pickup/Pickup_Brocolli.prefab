@@ -16,8 +16,7 @@ GameObject:
   - component: {fileID: 8811746062050357693}
   - component: {fileID: 542174208202931094}
   - component: {fileID: 774027522126547612}
-  - component: {fileID: 6037169825116115667}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: broccoli
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5538040715668823499, guid: 96075a3b7024fef4390be25dea816994, type: 3}
+  - {fileID: -797265723734996646, guid: 9d0a4a8b2fa207e4caf206f83b8da757, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,6 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1022c9db9655a4ca3c8a86482ac4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 774027522126547612}
+  _networkObjectCache: {fileID: 774027522126547612}
+  parent: {fileID: 0}
   useEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -146,9 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 4961043009228464371}
-  _networkObjectCache: {fileID: 4961043009228464371}
+  _networkObjectCache: {fileID: 774027522126547612}
   _synchronizeParent: 1
   _packing:
     Position: 1
@@ -189,42 +192,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
+  - {fileID: 8811746062050357693}
   - {fileID: 542174208202931094}
-  - {fileID: 6037169825116115667}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 10.692299, y: 0.477, z: 12.843712}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []
---- !u!114 &6037169825116115667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204384749550859906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 774027522126547612}
-  _networkObjectCache: {fileID: 4961043009228464371}
-  _graphicalObject: {fileID: 1949596482368169513}
-  _smoothTicks: 1
-  _smoothingDuration: 0.125
-  _predictionType: 0
-  _rigidbody: {fileID: 0}
-  _rigidbody2d: {fileID: 0}
-  _networkTransform: {fileID: 542174208202931094}
-  _predictionRatio: 0
 --- !u!1 &8541346670377423854
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,8 +252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
+  - {fileID: 8811746062050357693}
   - {fileID: 542174208202931094}
-  - {fileID: 6037169825116115667}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 10.692299, y: 0.477, z: 12.843712}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
