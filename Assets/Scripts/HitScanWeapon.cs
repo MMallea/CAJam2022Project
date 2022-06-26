@@ -10,15 +10,20 @@ public class HitScanWeapon : Weapon
     [SerializeField]
     protected Transform firePoint;
 
-    [SyncVar(hook = "SetAnimatorEnabled")]
+    [SyncVar(OnChange = nameof(SetAnimatorEnabled))]
     private bool isAnimatorEnabled = false;
 
-    public override void OnPickup()
+    public override void OnPickup(GameObject uObj)
     {
-        ServerSetAnimatorEnabled(true);
+        isAnimatorEnabled = true;
     }
 
-    public override void OnFire()
+    public override void OnDropOff(GameObject uObj)
+    {
+        isAnimatorEnabled = false;
+    }
+
+    public override void OnFire(GameObject uObj)
     {
         if (timeUntilNextShot <= 0.0f)
         {
@@ -28,14 +33,14 @@ public class HitScanWeapon : Weapon
         }
     }
 
-    protected void SetAnimatorEnabled(bool enabled)
+    protected void SetAnimatorEnabled(bool prev, bool next, bool asServer)
     {
-        if (animator != null)
-            animator.enabled = enabled;
+        if (animator)
+            animator.enabled = next;
     }
 
     [ServerRpc]
-    protected override void ServerFire(Vector3 firePointPosition, Vector3 firePointDirection)
+    protected void ServerFire(Vector3 firePointPosition, Vector3 firePointDirection)
     {
         if (Physics.Raycast(firePointPosition, firePointDirection, out RaycastHit hit) && hit.transform.TryGetComponent(out Game_CharacterController _controller))
         {

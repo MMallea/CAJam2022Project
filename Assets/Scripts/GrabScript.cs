@@ -90,7 +90,7 @@ public class GrabScript : NetworkBehaviour
 
     private void DropOffItem()
     {
-        heldItem.RemovePickedUp();
+        heldItem.RemovePickedUp(gameObject);
         heldItem.RemoveOwnership();
         heldItem = null;
     }

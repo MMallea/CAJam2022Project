@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5287732553868635238}
   - component: {fileID: 135881341521344134}
   - component: {fileID: 6611669233048852604}
-  - component: {fileID: 2286573148864816863}
   - component: {fileID: 3510747806058604072}
   - component: {fileID: 9216436412114309739}
+  - component: {fileID: 2286573148864816863}
   - component: {fileID: 7193667458534930906}
   m_Layer: 6
   m_Name: Pickup_MeleeWeapon
@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: 2286573148864816863}
   - {fileID: 3510747806058604072}
   - {fileID: 9216436412114309739}
+  - {fileID: 2286573148864816863}
   - {fileID: 7193667458534930906}
   SceneTransformProperties:
     Position: {x: 8.945, y: 0.477, z: 13.062552}
@@ -92,27 +92,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2286573148864816863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767654016579253980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 135881341521344134}
-  _networkObjectCache: {fileID: 135881341521344134}
-  IgnoredParameters: []
-  _animator: {fileID: 6611669233048852604}
-  _smoothFloats: 1
-  _synchronizeInterval: 0.1
-  _clientAuthoritative: 1
-  _sendToOwner: 0
 --- !u!114 &3510747806058604072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,11 +104,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58eabbed38858240973a50f2773470c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 3195000526248616628}
   _networkObjectCache: {fileID: 135881341521344134}
   damage: 2
   attackDelay: 0.5
+  weaponTypeSO: {fileID: 0}
 --- !u!114 &9216436412114309739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1022c9db9655a4ca3c8a86482ac4cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 3195000526248616628}
   _networkObjectCache: {fileID: 135881341521344134}
   isPickedUp: 0
@@ -154,7 +134,22 @@ MonoBehaviour:
       - m_Target: {fileID: 3510747806058604072}
         m_TargetAssemblyTypeName: MeleeWeapon, Assembly-CSharp
         m_MethodName: OnPickup
-        m_Mode: 1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDropOffEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3510747806058604072}
+        m_TargetAssemblyTypeName: MeleeWeapon, Assembly-CSharp
+        m_MethodName: OnDropOff
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -169,7 +164,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3510747806058604072}
         m_TargetAssemblyTypeName: MeleeWeapon, Assembly-CSharp
         m_MethodName: OnFire
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -178,6 +173,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2286573148864816863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767654016579253980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 135881341521344134}
+  _networkObjectCache: {fileID: 135881341521344134}
+  IgnoredParameters: []
+  _animator: {fileID: 6611669233048852604}
+  _smoothFloats: 1
+  _synchronizeInterval: 0.1
+  _clientAuthoritative: 1
+  _sendToOwner: 0
 --- !u!114 &7193667458534930906
 MonoBehaviour:
   m_ObjectHideFlags: 0

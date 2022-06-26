@@ -13,8 +13,10 @@ public class PickUpItem : NetworkBehaviour
     public int throwSpeed = 2;
 
     public Transform parent;
+    private GameObject userObj;
 
     public UnityEvent<GameObject> onPickedUpEvent;
+    public UnityEvent<GameObject> onDropOffEvent;
     public UnityEvent<GameObject> useEvent;
     private Rigidbody rBody;
     private MeshCollider meshCollider;
@@ -54,9 +56,9 @@ public class PickUpItem : NetworkBehaviour
         }
     }
 
-    public void Use(GameObject playerObject)
+    public void Use(GameObject uObj)
     {
-        useEvent?.Invoke(playerObject);
+        useEvent?.Invoke(uObj);
     }
 
     public Rigidbody GetRBody()
@@ -64,17 +66,19 @@ public class PickUpItem : NetworkBehaviour
         return rBody;
     }
 
-    public void SetPickedUp(GameObject playerObj, Transform pTransform)
+    public void SetPickedUp(GameObject uObj, Transform pTransform)
     {
         parent = pTransform;
+        userObj = uObj;
         isPickedUp = true;
-        onPickedUpEvent?.Invoke(playerObj);
+        onPickedUpEvent?.Invoke(uObj);
     }
 
-    public void RemovePickedUp()
+    public void RemovePickedUp(GameObject uObj)
     {
         parent = null;
         isPickedUp = false;
         rBody.AddForce(transform.forward * throwSpeed, ForceMode.VelocityChange);
+        onDropOffEvent?.Invoke(uObj);
     }
 }

@@ -4,25 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Weapon : NetworkBehaviour
+public abstract class Weapon : NetworkBehaviour
 {
-    private Game_CharacterController controller;
-
     [SerializeField]
     protected float damage;
-
     [SerializeField]
     protected float attackDelay;
+    [SerializeField]
+    protected WeaponType weaponTypeSO;
 
     protected float timeUntilNextShot;
-
     protected Animator animator;
+    protected MeshFilter meshFilter;
+    protected MeshRenderer meshRenderer;
+    protected MeshCollider meshCollider;
 
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
-
-        controller = GetComponent<Game_CharacterController>();
         animator = GetComponentInParent<Animator>();
     }
 
@@ -32,17 +31,26 @@ public class Weapon : NetworkBehaviour
             timeUntilNextShot -= Time.deltaTime;
     }
 
-    //I could probably just make this abstract
-    public virtual void OnPickup()
+    protected virtual void OnValidate()
     {
+        if(weaponTypeSO != null)
+        {
+            damage = weaponTypeSO.damage;
+
+            if (meshFilter == null) meshFilter = GetComponentInChildren<MeshFilter>();
+            if (meshFilter != null && weaponTypeSO.weaponMesh != null) meshFilter.mesh = weaponTypeSO.weaponMesh;
+
+            if (meshRenderer == null) meshRenderer = GetComponentInChildren<MeshRenderer>();
+            if (meshRenderer != null) meshRenderer.materials = weaponTypeSO.weaponMaterials.ToArray();
+
+            if (meshCollider == null) meshCollider = GetComponentInChildren<MeshCollider>();
+            if (meshCollider != null) meshCollider.sharedMesh = weaponTypeSO.weaponMesh;
+        }
     }
 
-    public virtual void OnFire()
-    {
-    }
+    public abstract void OnPickup(GameObject uObj);
 
-    [ServerRpc]
-    protected virtual void ServerFire(Vector3 firePointPosition, Vector3 firePointDirection)
-    {
-    }
+    public abstract void OnDropOff(GameObject uObj);
+
+    public abstract void OnFire(GameObject uObj);
 }
