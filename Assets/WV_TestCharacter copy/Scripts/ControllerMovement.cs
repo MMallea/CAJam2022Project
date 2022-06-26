@@ -125,12 +125,14 @@ namespace WV_TestCharacter
             if (isMovementPressed && !isWalking) {
                 animator.SetBool(isWalkingHash, true);
                 Debug.Log("WALK STEP!");
+                playFootstepAudio();
             } else if (!isMovementPressed && isWalking) {
                 animator.SetBool(isWalkingHash, false);
             } 
             if ((isMovementPressed && isRunPressed) && !isRunning) {
                 animator.SetBool(isRunningHash, true);
                 Debug.Log("RUN STEP!");
+                playFootstepAudio();
             } else if ((!isMovementPressed || !isRunPressed) && isRunning) {
                 animator.SetBool(isRunningHash, false);
             }
@@ -166,9 +168,11 @@ namespace WV_TestCharacter
         // plays the footstep audio set up in wwise. CASE SENSITIVE -- "Footsteps"
         private void playFootstepAudio() {
             if (!characterController.isGrounded) {
-                return;
+                return; 
             }
+           //animator event
             AkSoundEngine.PostEvent("Footsteps", gameObject);
+            
         }
 
         void OnEnable()
