@@ -16,17 +16,25 @@ public class Weapon : NetworkBehaviour
 
     protected float timeUntilNextShot;
 
+    protected Animator animator;
+
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
 
         controller = GetComponent<Game_CharacterController>();
+        animator = GetComponentInParent<Animator>();
     }
 
     private void Update()
     {
         if (timeUntilNextShot > 0)
             timeUntilNextShot -= Time.deltaTime;
+    }
+
+    //I could probably just make this abstract
+    public virtual void OnPickup()
+    {
     }
 
     public virtual void OnFire()

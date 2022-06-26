@@ -11,8 +11,12 @@ GameObject:
   - component: {fileID: 5287732553868635238}
   - component: {fileID: 135881341521344134}
   - component: {fileID: 6611669233048852604}
+  - component: {fileID: 2286573148864816863}
+  - component: {fileID: 3510747806058604072}
+  - component: {fileID: 9216436412114309739}
+  - component: {fileID: 7193667458534930906}
   m_Layer: 6
-  m_Name: Pickup_Cucumber_
+  m_Name: Pickup_MeleeWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,11 +51,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: 5686768425149916971}
-  - {fileID: 8751984814264023712}
+  - {fileID: 2286573148864816863}
+  - {fileID: 3510747806058604072}
+  - {fileID: 9216436412114309739}
+  - {fileID: 7193667458534930906}
   SceneTransformProperties:
-    Position: {x: 8.945, y: 0.714, z: 13.11272}
-    Rotation: {x: -0.19440557, y: 0, z: 0, w: 0.9809212}
+    Position: {x: 8.945, y: 0.477, z: 13.062552}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
@@ -86,6 +92,134 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2286573148864816863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767654016579253980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 135881341521344134}
+  _networkObjectCache: {fileID: 135881341521344134}
+  IgnoredParameters: []
+  _animator: {fileID: 6611669233048852604}
+  _smoothFloats: 1
+  _synchronizeInterval: 0.1
+  _clientAuthoritative: 1
+  _sendToOwner: 0
+--- !u!114 &3510747806058604072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767654016579253980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58eabbed38858240973a50f2773470c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 3195000526248616628}
+  _networkObjectCache: {fileID: 135881341521344134}
+  damage: 2
+  attackDelay: 0.5
+--- !u!114 &9216436412114309739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767654016579253980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1022c9db9655a4ca3c8a86482ac4cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 3195000526248616628}
+  _networkObjectCache: {fileID: 135881341521344134}
+  isPickedUp: 0
+  throwSpeed: 2
+  parent: {fileID: 0}
+  onPickedUpEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3510747806058604072}
+        m_TargetAssemblyTypeName: MeleeWeapon, Assembly-CSharp
+        m_MethodName: OnPickup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  useEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3510747806058604072}
+        m_TargetAssemblyTypeName: MeleeWeapon, Assembly-CSharp
+        m_MethodName: OnFire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7193667458534930906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767654016579253980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 135881341521344134}
+  _networkObjectCache: {fileID: 135881341521344134}
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 0
+  _sendToOwner: 0
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &9084479013564946802
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,8 +233,6 @@ GameObject:
   - component: {fileID: 2478123623758272541}
   - component: {fileID: 5686768425149916964}
   - component: {fileID: 5686768425149916965}
-  - component: {fileID: 5686768425149916971}
-  - component: {fileID: 8751984814264023712}
   - component: {fileID: 3195000526248616628}
   m_Layer: 6
   m_Name: Mesh
@@ -204,69 +336,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5446136294724587800, guid: 6153f2f78eb877944817d2538dcc1fd2, type: 3}
---- !u!114 &5686768425149916971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9084479013564946802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1022c9db9655a4ca3c8a86482ac4cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 3195000526248616628}
-  _networkObjectCache: {fileID: 135881341521344134}
-  isPickedUp: 0
-  throwSpeed: 2
-  parent: {fileID: 0}
-  useEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &8751984814264023712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9084479013564946802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 135881341521344134}
-  _networkObjectCache: {fileID: 135881341521344134}
-  _synchronizeParent: 0
-  _packing:
-    Position: 1
-    Rotation: 1
-    Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 0
-  _sendToOwner: 0
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 1
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0
 --- !u!114 &3195000526248616628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,15 +348,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkBehaviours:
-  - {fileID: 5686768425149916971}
-  - {fileID: 8751984814264023712}
+  _networkBehaviours: []
   SceneTransformProperties:
-    Position: {x: 8.945, y: 0.714, z: 13.11272}
-    Rotation: {x: -0.19440557, y: -0, z: -0, w: 0.9809212}
+    Position: {x: 8.945, y: 0.477, z: 13.062552}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 3.6163, y: 3.6163, z: 3.6163}
   _isNetworked: 1
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0

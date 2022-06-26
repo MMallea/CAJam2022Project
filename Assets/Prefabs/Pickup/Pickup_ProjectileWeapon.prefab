@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 8011610650203456717}
   - component: {fileID: 7363493932393025044}
   m_Layer: 6
-  m_Name: Gun
+  m_Name: Pickup_ProjectileWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

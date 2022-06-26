@@ -68,7 +68,7 @@ public class GrabScript : NetworkBehaviour
             Debug.DrawRay(ray.origin, ray.direction, Color.green, 99f);
             if(Physics.Raycast(ray, out hit, 10f))
             {
-                PickUpItem item = hit.transform.GetComponent<PickUpItem>();
+                PickUpItem item = hit.transform.GetComponentInParent<PickUpItem>();
                 if(item)
                     GrabItem(item);
             }
@@ -85,12 +85,12 @@ public class GrabScript : NetworkBehaviour
     {
         heldItem = item;
         heldItem.GiveOwnership(Owner);
-        heldItem.SetAsParent(handTransform);
+        heldItem.SetPickedUp(gameObject, handTransform);
     }
 
     private void DropOffItem()
     {
-        heldItem.RemoveParent();
+        heldItem.RemovePickedUp();
         heldItem.RemoveOwnership();
         heldItem = null;
     }

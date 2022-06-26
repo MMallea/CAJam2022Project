@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(MeshCollider))]
-[RequireComponent(typeof(Rigidbody))]
 public class PickUpItem : NetworkBehaviour
 {
     [SyncVar]
@@ -16,6 +14,7 @@ public class PickUpItem : NetworkBehaviour
 
     public Transform parent;
 
+    public UnityEvent<GameObject> onPickedUpEvent;
     public UnityEvent<GameObject> useEvent;
     private Rigidbody rBody;
     private MeshCollider meshCollider;
@@ -23,8 +22,8 @@ public class PickUpItem : NetworkBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        rBody = GetComponent<Rigidbody>();
-        meshCollider = GetComponent<MeshCollider>();
+        rBody = GetComponentInChildren<Rigidbody>();
+        meshCollider = GetComponentInChildren<MeshCollider>();
     }
 
     // Update is called once per frame
@@ -65,13 +64,14 @@ public class PickUpItem : NetworkBehaviour
         return rBody;
     }
 
-    public void SetAsParent(Transform pTransform)
+    public void SetPickedUp(GameObject playerObj, Transform pTransform)
     {
         parent = pTransform;
         isPickedUp = true;
+        onPickedUpEvent?.Invoke(playerObj);
     }
 
-    public void RemoveParent()
+    public void RemovePickedUp()
     {
         parent = null;
         isPickedUp = false;
