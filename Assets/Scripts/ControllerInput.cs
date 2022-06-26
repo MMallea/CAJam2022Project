@@ -10,8 +10,11 @@ public class ControllerInput : NetworkBehaviour
     private InputActionReference movementControl;
     [SerializeField]
     private InputActionReference jumpControl;
+    [SerializeField]
+    private InputActionReference runControl;
 
     [HideInInspector] public bool jump;
+    [HideInInspector] public bool runPressed;
     [HideInInspector] public Vector2 input = Vector2.zero;
     [HideInInspector] public Vector3 camForward = Vector3.zero;
     [HideInInspector] public Vector3 camRight = Vector3.zero;
@@ -37,18 +40,28 @@ public class ControllerInput : NetworkBehaviour
         {
             jumpPressed = false;
         };
+        runControl.action.started += context =>
+        {
+            runPressed = true;
+        };
+        runControl.action.canceled += context =>
+        {
+            runPressed = false;
+        };
     }
 
     private void OnEnable()
     {
         movementControl.action.Enable();
         jumpControl.action.Enable();
+        runControl.action.Enable();
     }
 
     private void OnDisable()
     {
         movementControl.action.Disable();
         jumpControl.action.Disable();
+        runControl.action.Disable();
     }
 
     private void Update()
