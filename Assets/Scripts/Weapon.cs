@@ -25,7 +25,7 @@ public abstract class Weapon : NetworkBehaviour
         animator = GetComponentInParent<Animator>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (timeUntilNextShot > 0)
             timeUntilNextShot -= Time.deltaTime;

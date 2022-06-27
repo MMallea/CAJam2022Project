@@ -8,14 +8,12 @@ using FishNet.Object.Prediction;
 using FishNet.Example.Prediction.CharacterControllers;
 using FishNet.Object.Synchronizing;
 
-[RequireComponent(typeof(ControllerInput))]
-public class Game_CharacterController : NetworkBehaviour
+public class EnemyController : NetworkBehaviour
 {
     #region Public.
     [SyncVar]
     public float health;
-    [SyncVar]
-    public Player controllingPlayer;
+
     public Animator animator;
     #endregion
 
@@ -62,8 +60,6 @@ public class Game_CharacterController : NetworkBehaviour
         //Set animation
         animator.SetBool(isWalkingHash, ctrlInput.input != Vector2.zero && !ctrlInput.runPressed);
         animator.SetBool(isRunningHash, ctrlInput.runPressed);
-        if(animator.GetBool(isWalkingHash) || animator.GetBool(isRunningHash))
-            PlayFootstepAudio();
 
         //Movement
         Vector3 desiredVelocity = Vector3.zero;
@@ -102,8 +98,6 @@ public class Game_CharacterController : NetworkBehaviour
 
         if ((health -= amount) <= 0.0f)
         {
-            controllingPlayer.TargetControllerKilled(Owner);
-
             Despawn();
         }
     }
@@ -123,5 +117,30 @@ public class Game_CharacterController : NetworkBehaviour
     private bool IsMovingOnGround()
     {
         return _characterController.isGrounded && velocity.x != 0 && velocity.z != 0;
+    }
+
+    void HandleAnimation()
+    {
+        bool isWalking = animator.GetBool(isWalkingHash);
+        bool isRunning = animator.GetBool(isRunningHash);
+
+        if (IsMovingOnGround() && !isWalking)
+        {
+            animator.SetBool(isWalkingHash, true);
+            PlayFootstepAudio();
+        }
+        else if (!IsMovingOnGround() && isWalking)
+        {
+            animator.SetBool(isWalkingHash, false);
+        }
+        if ((IsMovingOnGround() && ctrlInput.runPressed) && !isRunning)
+        {
+            animator.SetBool(isRunningHash, true);
+            PlayFootstepAudio();
+        }
+        else if ((!IsMovingOnGround() || !ctrlInput.runPressed) && isRunning)
+        {
+            animator.SetBool(isRunningHash, false);
+        }
     }
 }

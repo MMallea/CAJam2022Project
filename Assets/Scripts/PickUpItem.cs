@@ -38,14 +38,14 @@ public class PickUpItem : NetworkBehaviour
                 rBody.isKinematic = true;
                 rBody.velocity = Vector3.zero;
                 rBody.angularVelocity = Vector3.zero;
-                meshCollider.enabled = false;
+                meshCollider.isTrigger = true;
             }
         } else
         {
             if (rBody.isKinematic)
             {
                 rBody.isKinematic = false;
-                meshCollider.enabled = true;
+                meshCollider.isTrigger = false;
             }
         }
 

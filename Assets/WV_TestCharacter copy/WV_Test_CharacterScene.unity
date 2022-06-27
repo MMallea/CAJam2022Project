@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3011075293c5dba4ba12f27dae875eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 356957075599863640}
+  target: {fileID: 0}
   cameraOffset: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0, w: 0}
   smoothFactor: 0.5
@@ -927,11 +927,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &356957075599863640 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6974618907818716685, guid: bbee0308443351e42b9b6afb0272f58a, type: 3}
-  m_PrefabInstance: {fileID: 7223483944211104085}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7223483944211104085
 PrefabInstance:
   m_ObjectHideFlags: 0
