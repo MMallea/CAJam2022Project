@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6611669233048852604}
   - component: {fileID: 3510747806058604072}
   - component: {fileID: 9216436412114309739}
-  - component: {fileID: 2286573148864816863}
   - component: {fileID: 7193667458534930906}
+  - component: {fileID: 3989693370399599689}
   m_Layer: 6
   m_Name: Pickup_MeleeWeapon
   m_TagString: Untagged
@@ -53,7 +53,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 3510747806058604072}
   - {fileID: 9216436412114309739}
-  - {fileID: 2286573148864816863}
+  - {fileID: 0}
   - {fileID: 7193667458534930906}
   SceneTransformProperties:
     Position: {x: 8.945, y: 0.477, z: 13.062552}
@@ -173,27 +173,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2286573148864816863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767654016579253980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 135881341521344134}
-  _networkObjectCache: {fileID: 135881341521344134}
-  IgnoredParameters: []
-  _animator: {fileID: 6611669233048852604}
-  _smoothFloats: 1
-  _synchronizeInterval: 0.1
-  _clientAuthoritative: 1
-  _sendToOwner: 0
 --- !u!114 &7193667458534930906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +215,27 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &3989693370399599689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767654016579253980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 135881341521344134}
+  _networkObjectCache: {fileID: 0}
+  IgnoredParameters: []
+  _animator: {fileID: 6611669233048852604}
+  _smoothFloats: 1
+  _synchronizeInterval: 0.1
+  _clientAuthoritative: 1
+  _sendToOwner: 0
 --- !u!1 &9084479013564946802
 GameObject:
   m_ObjectHideFlags: 0

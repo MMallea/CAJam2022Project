@@ -7,9 +7,14 @@ using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Example.Prediction.CharacterControllers;
 using FishNet.Object.Synchronizing;
+using UnityEngine.AI;
 
 public class EnemyController : NetworkBehaviour
 {
+    public enum EnemyState { Patrolling, CollectWeapon, Hunting, Attacking };
+    public EnemyState enemyState;
+    public EnemyState defaultState = EnemyState.Patrolling;
+
     #region Public.
     [SyncVar]
     public float health;
@@ -19,23 +24,32 @@ public class EnemyController : NetworkBehaviour
 
     #region Serialized.
     [SerializeField]
-    private float walkSpeed = 5f;
-    [SerializeField]
-    private float runSpeed = 8f;
+    private float moveSpeed = 6f;
     [SerializeField]
     private float jumpHeight;
     [SerializeField]
-    private float gravityScale;
+    private float interactDist = 0.5f;
     [SerializeField]
-    private Transform meshTransform;
+    private float detectionDist = 8f;
+    [SerializeField]
+    private float lostDist = 15f;
+    [SerializeField]
+    private float attackDelayMax = 1;
+    [SerializeField]
+    private List<Transform> patrolPoints;
     #endregion
 
     #region Private.
     // Variables to store setter/getter parameter IDs (such as strings) for performance optimization.
+    private int patrolPointIndex = 0;
     private int isWalkingHash, isRunningHash;
-    private ControllerInput ctrlInput;
-    private CharacterController _characterController;
-    private Vector3 velocity = Vector3.zero;
+    private float attackDelay;
+
+    private Rigidbody rigidBody;
+    private Transform target;
+    private NavMeshAgent agent;
+    private GrabScript grabScript;
+    private CapsuleCollider capsuleCollider;
 
     #endregion
 
@@ -43,9 +57,14 @@ public class EnemyController : NetworkBehaviour
     {
         base.OnStartNetwork();
 
-        _characterController = GetComponent<CharacterController>();
-        ctrlInput = GetComponent<ControllerInput>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = moveSpeed;
+        attackDelay = attackDelayMax;
+
+        patrolPoints = new List<Transform>();
+        rigidBody = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
         // Set up parameter hash references.
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -55,41 +74,109 @@ public class EnemyController : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        float speed = ctrlInput.runPressed ? runSpeed : walkSpeed;
+        HandleAnimation();
 
-        //Set animation
-        animator.SetBool(isWalkingHash, ctrlInput.input != Vector2.zero && !ctrlInput.runPressed);
-        animator.SetBool(isRunningHash, ctrlInput.runPressed);
-
-        //Movement
-        Vector3 desiredVelocity = Vector3.zero;
-        if (ctrlInput.input != Vector2.zero)
+        switch(enemyState)
         {
-            desiredVelocity = Vector3.ClampMagnitude(((ctrlInput.camForward * ctrlInput.input.y) + (ctrlInput.camRight * ctrlInput.input.x)) * speed, speed);
-            desiredVelocity.y = 0;
-            transform.rotation = Quaternion.LookRotation(desiredVelocity.normalized);
+            case EnemyState.Patrolling:
+                Transform playerTarget = GetClosestTarget(detectionDist, LayerMask.NameToLayer("Player"));
+                Transform pickupTarget = GetClosestTarget(detectionDist, LayerMask.NameToLayer("Pickup"));
+                if(playerTarget)
+                {
+                    target = playerTarget;
+                    agent.destination = target.position;
+                    enemyState = EnemyState.Hunting;
+                    break;
+                } 
+                else if (pickupTarget)
+                {
+                    target = pickupTarget;
+                    agent.destination = target.position;
+                    enemyState = EnemyState.CollectWeapon;
+                    break;
+                }
+
+                if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                    GoToNextPatrolPoint();
+                break;
+            case EnemyState.CollectWeapon:
+                if(target == null)
+                {
+                    enemyState = defaultState;
+                    break;
+                } 
+                else if (target.gameObject.layer != LayerMask.NameToLayer("Pickup"))
+                {
+                    target = null;
+                    enemyState = defaultState;
+                    break;
+                }
+
+                if(agent.remainingDistance <= interactDist)
+                {
+                    PickUpItem item = GetComponent<PickUpItem>();
+                    if (item)
+                    {
+                        grabScript.GrabItem(item);
+                        target = null;
+                        enemyState = defaultState;
+                    }
+                }
+
+                agent.destination = target.position;
+                break;
+            case EnemyState.Hunting:
+                if (target == null || agent.remainingDistance > lostDist)
+                {
+                    enemyState = defaultState;
+                    break;
+                }
+                else if (target.gameObject.layer != LayerMask.NameToLayer("Player") || grabScript.heldItem == null)
+                {
+                    target = null;
+                    enemyState = defaultState;
+                    break;
+                }
+
+                if (agent.remainingDistance <= interactDist)
+                {
+                    enemyState = EnemyState.Attacking;
+                    break;
+                }
+
+                agent.destination = target.position;
+                break;
+            case EnemyState.Attacking:
+                if (target == null)
+                {
+                    enemyState = defaultState;
+                    break;
+                }
+                else if (target.gameObject.layer != LayerMask.NameToLayer("Player") || grabScript.heldItem == null)
+                {
+                    target = null;
+                    enemyState = defaultState;
+                    break;
+                }
+                else if (agent.remainingDistance > interactDist + 1)
+                {
+                    enemyState = EnemyState.Hunting;
+                    break;
+                }
+
+                if (attackDelay > 0)
+                {
+                    attackDelay -= Time.deltaTime;
+                }
+                else
+                {
+                    grabScript.UseItem();
+                    attackDelay = attackDelayMax;
+                }
+
+                agent.destination = target.position;
+                break;
         }
-
-        velocity.x = desiredVelocity.x;
-        velocity.z = desiredVelocity.z;
-
-        if(_characterController.isGrounded)
-        {
-            velocity.y = 0.0f;
-            
-            if(ctrlInput.jump)
-            {
-                velocity.y = jumpHeight;
-                ctrlInput.HasJumped();
-            }
-
-        }
-        else
-        {
-            velocity.y += Physics.gravity.y * gravityScale * Time.deltaTime;
-        }
-
-        _characterController.Move(velocity * Time.deltaTime);
     }
 
     public void ReceiveDamage(float amount)
@@ -102,21 +189,60 @@ public class EnemyController : NetworkBehaviour
         }
     }
 
+    private void GoToNextPatrolPoint()
+    {
+        // Returns if no points have been set up
+        if (patrolPoints.Count == 0)
+            return;
+
+        // Set the agent to go to the currently selected destination.
+        agent.destination = patrolPoints[patrolPointIndex].position;
+
+        // Choose the next point in the array as the destination,
+        // cycling to the start if necessary.
+        patrolPointIndex = (patrolPointIndex + 1) % patrolPoints.Count;
+    }
+
+    private Transform GetClosestTarget(float distance, int layerMask)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, distance, layerMask);
+        if(hitColliders.Length > 0)
+        {
+            float closestDist = -1;
+            Collider closestColl = null;
+
+            foreach (Collider hit in hitColliders)
+            {
+                float dist = Vector3.Distance(transform.position, hit.transform.position);
+                if(closestColl == null || dist < closestDist)
+                {
+                    closestColl = hit;
+                    closestDist = dist;
+                }
+            }
+
+            if(closestColl)
+                return closestColl.transform;
+        }
+
+        return null;
+    }
+
     // plays the footstep audio set up in wwise. CASE SENSITIVE -- "Footsteps"
     private void PlayFootstepAudio()
     {
-        if (!_characterController.isGrounded)
-        {
-            return;
-        }
         //animator event
-        AkSoundEngine.PostEvent("Footsteps", gameObject);
+        //AkSoundEngine.PostEvent("Footsteps", gameObject);
 
     }
 
-    private bool IsMovingOnGround()
+    private bool IsGrounded() {
+        return Physics.Raycast(transform.position, -Vector3.up, capsuleCollider.bounds.extents.y + 0.1f);
+    }
+
+private bool IsMovingOnGround()
     {
-        return _characterController.isGrounded && velocity.x != 0 && velocity.z != 0;
+        return agent.pathPending && IsGrounded();
     }
 
     void HandleAnimation()
@@ -124,21 +250,12 @@ public class EnemyController : NetworkBehaviour
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRunning = animator.GetBool(isRunningHash);
 
-        if (IsMovingOnGround() && !isWalking)
-        {
-            animator.SetBool(isWalkingHash, true);
-            PlayFootstepAudio();
-        }
-        else if (!IsMovingOnGround() && isWalking)
-        {
-            animator.SetBool(isWalkingHash, false);
-        }
-        if ((IsMovingOnGround() && ctrlInput.runPressed) && !isRunning)
+        if (IsMovingOnGround() && !isRunning)
         {
             animator.SetBool(isRunningHash, true);
             PlayFootstepAudio();
         }
-        else if ((!IsMovingOnGround() || !ctrlInput.runPressed) && isRunning)
+        else if (!IsMovingOnGround() && isRunning)
         {
             animator.SetBool(isRunningHash, false);
         }

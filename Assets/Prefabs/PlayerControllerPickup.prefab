@@ -379,6 +379,32 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 7746475432894117040, guid: bbee0308443351e42b9b6afb0272f58a, type: 3}
   m_PrefabInstance: {fileID: 4087630957594116859}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5997436737922020940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7746475432894117047, guid: bbee0308443351e42b9b6afb0272f58a, type: 3}
+  m_PrefabInstance: {fileID: 4087630957594116859}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1085123516151030910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5997436737922020940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 8170170504807459358}
+  _networkObjectCache: {fileID: 0}
+  IgnoredParameters: []
+  _animator: {fileID: 5997436737922020939}
+  _smoothFloats: 1
+  _synchronizeInterval: 0.1
+  _clientAuthoritative: 1
+  _sendToOwner: 0
 --- !u!4 &6372870839234751734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6974618907818716685, guid: bbee0308443351e42b9b6afb0272f58a, type: 3}

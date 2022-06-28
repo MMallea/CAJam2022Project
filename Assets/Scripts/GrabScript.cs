@@ -13,8 +13,8 @@ public class GrabScript : NetworkBehaviour
     private InputActionReference grabControl;
     [SerializeField]
     private InputActionReference releaseControl;
-
-    private PickUpItem heldItem;
+    [HideInInspector]
+    public PickUpItem heldItem;
 
     private CameraController cameraController;
 
@@ -44,14 +44,14 @@ public class GrabScript : NetworkBehaviour
 
     private void OnEnable()
     {
-        grabControl.action.Enable();
-        releaseControl.action.Enable();
+        if (grabControl) grabControl.action.Enable();
+        if (releaseControl) releaseControl.action.Enable();
     }
 
     private void OnDisable()
     {
-        grabControl.action.Disable();
-        releaseControl.action.Disable();
+        if (grabControl) grabControl.action.Disable();
+        if (releaseControl) releaseControl.action.Disable();
     }
 
     private void FixedUpdate()
@@ -75,23 +75,22 @@ public class GrabScript : NetworkBehaviour
         }
     }
 
-    private void UseItem()
+    public void UseItem()
     {
         if (heldItem != null)
             heldItem.Use(gameObject);
     }
 
-    private void GrabItem(PickUpItem item)
+    public void GrabItem(PickUpItem item)
     {
         heldItem = item;
-        heldItem.GiveOwnership(Owner);
+        Debug.Log(gameObject.name);
         heldItem.SetPickedUp(gameObject, handTransform);
     }
 
     private void DropOffItem()
     {
         heldItem.RemovePickedUp(gameObject);
-        heldItem.RemoveOwnership();
         heldItem = null;
     }
 }

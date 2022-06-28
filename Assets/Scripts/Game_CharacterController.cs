@@ -116,7 +116,7 @@ public class Game_CharacterController : NetworkBehaviour
             return;
         }
         //animator event
-        AkSoundEngine.PostEvent("Footsteps", gameObject);
+        //AkSoundEngine.PostEvent("Footsteps", gameObject);
 
     }
 

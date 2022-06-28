@@ -15,13 +15,16 @@ public class MeleeWeapon : Weapon
     [SyncVar(OnChange = nameof(SetAnimatorEnabled))]
     private bool isAnimatorEnabled = false;
 
+    [SyncVar(OnChange = nameof(SetStrikeNum))]
+    private int strikeNum;
+
     private GameObject equippedByUser;
 
     protected override void Update()
     {
         base.Update();
 
-        if (animator != null && animator.GetBool("ResetAttack"))
+        if (animator != null && animator.GetBool("ResetAttack") && animator.GetCurrentAnimatorStateInfo(0).IsName("Melee_Hold") && animator.GetInteger("Attack") != 0)
         {
             ResetAttackingAnim();
         }
@@ -51,18 +54,7 @@ public class MeleeWeapon : Weapon
 
     public void ResetAttackingAnim()
     {
-        //TODO: Ahh melee hold is hard coded
-        if (animator != null)
-        {
-            animator.SetInteger("Attack", 0);
-            if (equippedByUser != null)
-            {
-                Animator userAnim = equippedByUser.GetComponentInChildren<Animator>();
-                userAnim.SetInteger("MeleeAttack", 0);
-            }
-
-            animator.SetBool("ResetAttack", false);
-        }
+        strikeNum = 0;
     }
 
     protected void SetAnimatorEnabled(bool prev, bool next, bool asServer)
@@ -87,6 +79,18 @@ public class MeleeWeapon : Weapon
         }
     }
 
+    public void SetStrikeNum(int prev, int next, bool asServer)
+    {
+        if (animator != null)
+            animator.SetInteger("Attack", next);
+
+        if (equippedByUser != null)
+        {
+            Animator userAnim = equippedByUser.GetComponentInChildren<Animator>();
+            userAnim.SetInteger("MeleeAttack", next);
+        }
+    }
+
     protected void TriggerFiring(bool prev, bool next, bool asServer)
     {
         if(isFiring)
@@ -99,20 +103,7 @@ public class MeleeWeapon : Weapon
             if (meleeAttack > 2)
                 meleeAttack = 0;
 
-            if (animator != null)
-                animator.SetInteger("Attack", meleeAttack);
-
-            if(equippedByUser != null)
-            {
-                //Rigidbody rBody = equippedByUser.GetComponentInParent<Rigidbody>();
-                //if (rBody)
-                //{
-                //    rBody.AddForce(equippedByUser.transform.forward * 100, ForceMode.VelocityChange);
-                //}
-
-                Animator userAnim = equippedByUser.GetComponentInChildren<Animator>();
-                userAnim.SetInteger("MeleeAttack", meleeAttack);
-            }
+            strikeNum = meleeAttack;
 
             isFiring = false;
         }
@@ -124,6 +115,7 @@ public class MeleeWeapon : Weapon
         if (coll.tag == "Player")
         {
             Game_CharacterController controller = coll.GetComponentInParent<Game_CharacterController>();
+            Debug.Log(controller.name);
             controller.ReceiveDamage(damage);
 
         }
