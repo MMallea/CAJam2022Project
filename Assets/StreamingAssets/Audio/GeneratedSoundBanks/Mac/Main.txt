@@ -1,0 +1,22 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2385628198	Footsteps			\Default Work Unit\Footsteps	
+
+Switch Group	ID	Name			Wwise Object Path	Notes
+	2385628198	Footsteps			\Default Work Unit\Footsteps	
+
+Switch	ID	Name	Switch Group			Notes
+	841620460	Concrete	Footsteps			
+	2185786256	Gravel	Footsteps			
+	2195636714	Dirt	Footsteps			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	452429	FS_Dirt_02	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Dirt\FS_Dirt_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Dirt\FS_Dirt_02		75860
+	47637319	FS_Dirt_03	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Dirt\FS_Dirt_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Dirt\FS_Dirt_03		75860
+	233155476	FS_Gravel_03	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Gravel\FS_Gravel_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Gravel\FS_Gravel_03		48216
+	459961431	FS_Concrete_01	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Concrete\FS_Concrete_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Concrete\FS_Concrete_01		42920
+	604625117	FS_Concrete_03	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Concrete\FS_Concrete_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Concrete\FS_Concrete_03		63486
+	654519414	FS_Concrete_02	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Concrete\FS_Concrete_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Concrete\FS_Concrete_02		55016
+	749665058	FS_Gravel_01	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Gravel\FS_Gravel_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Gravel\FS_Gravel_01		42974
+	872258806	FS_Gravel_02	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Gravel\FS_Gravel_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Gravel\FS_Gravel_02		34166
+	915990829	FS_Dirt_01	Y:\games\CAJam2022Project\CAJam2022Project_WwiseProject\.cache\Mac\SFX\Footsteps\Dirt\FS_Dirt_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\Dirt\FS_Dirt_01		43842
+

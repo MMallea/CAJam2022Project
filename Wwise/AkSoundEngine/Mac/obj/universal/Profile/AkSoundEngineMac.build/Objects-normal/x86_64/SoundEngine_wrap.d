@@ -1,0 +1,54 @@
+dependencies: \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/wwiseunity/AkSoundEngine/Mac/SoundEngine_wrap.cxx \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkTypes.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/AkPlatforms.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Platforms/Mac/AkTypes.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Platforms/POSIX/AkTypes.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkSoundEngineExport.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkSoundEngine.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/IAkPlugin.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkCommonDefs.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkSpeakerConfig.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkSpeakerVolumes.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Platforms/Generic/AkSpeakerVolumes.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkPlatformFuncs.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkAtomic.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Platforms/Linux/AkAtomic.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Mac/AkPlatformFuncs.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkAssert.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/POSIX/AkPlatformFuncs.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/IAkPluginMemAlloc.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkMemoryMgr.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkArray.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkObject.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkString.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkFNVHash.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkHashList.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkKeyDef.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/IAkRTPCSubscriber.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkFPUtilities.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkLock.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/POSIX/AkLock.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkMonitorError.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/IAkProcessorFeatures.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/IAkPlatformContext.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkMidiTypes.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkCallback.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/AkWwiseSDKVersion.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Platforms/Mac/AkMacSoundEngine.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Platforms/Mac/AkPlatformContext.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkModule.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkStreamMgrModule.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/IAkStreamMgr.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/MusicEngine/Common/AkMusicEngine.h \
+  ../Common/AkCallbackSerializer.h ../Common/SwigExceptionSwitch.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkDynamicDialogue.h \
+  ../Common/AkDynamicSequence_PlaylistItem.h ../Common/AkArrayProxy.h \
+  ../Common/AkDynamicSequence_Playlist.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SoundEngine/Common/AkQueryParameters.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Plugin/AkReflectGameData.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SpatialAudio/Common/AkSpatialAudioTypes.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkKeyArray.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/Tools/Common/AkSet.h \
+  /Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/include/AK/SpatialAudio/Common/AkSpatialAudio.h \
+  ../Common/AkSoundEngineStubs.h

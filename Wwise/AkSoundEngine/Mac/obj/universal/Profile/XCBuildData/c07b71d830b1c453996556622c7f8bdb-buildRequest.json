@@ -1,0 +1,41 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "ee4afbde1bc68f6646852a3b42669accb4ae9faa15b4044ba7a1914c04f3c3f8"
+    }
+  ],
+  "containerPath" : "/Volumes/Data/Jenkins/ws/wwise_v2021.1/wwiseunity/AkSoundEngine/Mac/AkSoundEngineMac.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "configurationName" : "Profile",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+          "WWISESDK" : "/Volumes/Data/Jenkins/ws/wwise_v2021.1/Wwise/SDK/"
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : false
+}
