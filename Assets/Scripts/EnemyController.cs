@@ -8,6 +8,7 @@ using FishNet.Object.Prediction;
 using FishNet.Example.Prediction.CharacterControllers;
 using FishNet.Object.Synchronizing;
 using UnityEngine.AI;
+using System;
 
 public class EnemyController : NetworkBehaviour
 {
@@ -28,7 +29,7 @@ public class EnemyController : NetworkBehaviour
     [SerializeField]
     private float jumpHeight;
     [SerializeField]
-    private float interactDist = 0.5f;
+    private float interactDist = 1f;
     [SerializeField]
     private float detectionDist = 8f;
     [SerializeField]
@@ -36,7 +37,7 @@ public class EnemyController : NetworkBehaviour
     [SerializeField]
     private float attackDelayMax = 1;
     [SerializeField]
-    private List<Transform> patrolPoints;
+    private List<Transform> patrolPoints = new List<Transform>();
     #endregion
 
     #region Private.
@@ -61,8 +62,8 @@ public class EnemyController : NetworkBehaviour
         agent.speed = moveSpeed;
         attackDelay = attackDelayMax;
 
-        patrolPoints = new List<Transform>();
         rigidBody = GetComponent<Rigidbody>();
+        grabScript = GetComponent<GrabScript>();
         animator = GetComponentInChildren<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         // Set up parameter hash references.
@@ -72,16 +73,20 @@ public class EnemyController : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner) return;
-
         HandleAnimation();
 
         switch(enemyState)
         {
             case EnemyState.Patrolling:
-                Transform playerTarget = GetClosestTarget(detectionDist, LayerMask.NameToLayer("Player"));
-                Transform pickupTarget = GetClosestTarget(detectionDist, LayerMask.NameToLayer("Pickup"));
-                if(playerTarget)
+                Transform playerTarget = GetClosestTarget(detectionDist, 1 << LayerMask.NameToLayer("Player"), null);
+                Transform pickupTarget = GetClosestTarget(10000, 1 << LayerMask.NameToLayer("Pickup"), (Collider coll) => {
+                    PickUpItem item = coll.GetComponentInParent<PickUpItem>();
+                    if (item)
+                        return !item.isPickedUp;
+
+                    return false;
+                });
+                if(playerTarget && grabScript.heldItem != null)
                 {
                     target = playerTarget;
                     agent.destination = target.position;
@@ -114,7 +119,7 @@ public class EnemyController : NetworkBehaviour
 
                 if(agent.remainingDistance <= interactDist)
                 {
-                    PickUpItem item = GetComponent<PickUpItem>();
+                    PickUpItem item = target.GetComponentInParent<PickUpItem>();
                     if (item)
                     {
                         grabScript.GrabItem(item);
@@ -158,7 +163,7 @@ public class EnemyController : NetworkBehaviour
                     enemyState = defaultState;
                     break;
                 }
-                else if (agent.remainingDistance > interactDist + 1)
+                else if (Vector3.Distance(transform.position, target.position) > interactDist + 1)
                 {
                     enemyState = EnemyState.Hunting;
                     break;
@@ -174,7 +179,7 @@ public class EnemyController : NetworkBehaviour
                     attackDelay = attackDelayMax;
                 }
 
-                agent.destination = target.position;
+                agent.isStopped = true;
                 break;
         }
     }
@@ -203,7 +208,7 @@ public class EnemyController : NetworkBehaviour
         patrolPointIndex = (patrolPointIndex + 1) % patrolPoints.Count;
     }
 
-    private Transform GetClosestTarget(float distance, int layerMask)
+    private Transform GetClosestTarget(float distance, int layerMask, Func<Collider, bool> qualifier)
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, distance, layerMask);
         if(hitColliders.Length > 0)
@@ -213,8 +218,14 @@ public class EnemyController : NetworkBehaviour
 
             foreach (Collider hit in hitColliders)
             {
+                bool meetsQualifier = true;
+                if(qualifier != null)
+                    meetsQualifier = qualifier(hit);
+
+                Debug.Log("MeetsQualifier: " + meetsQualifier);
+
                 float dist = Vector3.Distance(transform.position, hit.transform.position);
-                if(closestColl == null || dist < closestDist)
+                if (closestColl == null || dist < closestDist && meetsQualifier)
                 {
                     closestColl = hit;
                     closestDist = dist;
@@ -240,9 +251,9 @@ public class EnemyController : NetworkBehaviour
         return Physics.Raycast(transform.position, -Vector3.up, capsuleCollider.bounds.extents.y + 0.1f);
     }
 
-private bool IsMovingOnGround()
+private bool IsMoving()
     {
-        return agent.pathPending && IsGrounded();
+        return agent.pathPending;
     }
 
     void HandleAnimation()
@@ -250,12 +261,12 @@ private bool IsMovingOnGround()
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRunning = animator.GetBool(isRunningHash);
 
-        if (IsMovingOnGround() && !isRunning)
+        if (IsMoving() && !isRunning)
         {
             animator.SetBool(isRunningHash, true);
             PlayFootstepAudio();
         }
-        else if (!IsMovingOnGround() && isRunning)
+        else if (!IsMoving() && isRunning)
         {
             animator.SetBool(isRunningHash, false);
         }
