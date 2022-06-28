@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="16" SoundBankVersion="144">
+	<RootPaths>
+		<ProjectRoot>../../</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Mac/</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{906F145D-8EC4-98DD-8896-A13B6757E8AB}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+			<SwitchGroups>
+				<SwitchGroup Id="2385628198" Name="Footsteps">
+					<Switches>
+						<Switch Id="841620460" Name="Concrete"/>
+						<Switch Id="2185786256" Name="Gravel"/>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{D43F48A7-2655-B17D-C029-A5F6253C7401}">
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
+			<Media>
+				<File Id="452429" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Dirt\FS_Dirt_02.wav</ShortName>
+					<CachePath>SFX/Footsteps/Dirt/FS_Dirt_02_10C4C929.wem</CachePath>
+				</File>
+				<File Id="47637319" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Dirt\FS_Dirt_03.wav</ShortName>
+					<CachePath>SFX/Footsteps/Dirt/FS_Dirt_03_10C4C929.wem</CachePath>
+				</File>
+				<File Id="233155476" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Gravel\FS_Gravel_03.wav</ShortName>
+					<CachePath>SFX/Footsteps/Gravel/FS_Gravel_03_10C4C929.wem</CachePath>
+				</File>
+				<File Id="459961431" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Concrete\FS_Concrete_01.wav</ShortName>
+					<CachePath>SFX/Footsteps/Concrete/FS_Concrete_01_10C4C929.wem</CachePath>
+				</File>
+				<File Id="604625117" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Concrete\FS_Concrete_03.wav</ShortName>
+					<CachePath>SFX/Footsteps/Concrete/FS_Concrete_03_10C4C929.wem</CachePath>
+				</File>
+				<File Id="654519414" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Concrete\FS_Concrete_02.wav</ShortName>
+					<CachePath>SFX/Footsteps/Concrete/FS_Concrete_02_10C4C929.wem</CachePath>
+				</File>
+				<File Id="749665058" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Gravel\FS_Gravel_01.wav</ShortName>
+					<CachePath>SFX/Footsteps/Gravel/FS_Gravel_01_10C4C929.wem</CachePath>
+				</File>
+				<File Id="872258806" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Gravel\FS_Gravel_02.wav</ShortName>
+					<CachePath>SFX/Footsteps/Gravel/FS_Gravel_02_10C4C929.wem</CachePath>
+				</File>
+				<File Id="915990829" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps\Dirt\FS_Dirt_01.wav</ShortName>
+					<CachePath>SFX/Footsteps/Dirt/FS_Dirt_01_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0.386644" DurationMax="0.8593651">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="2385628198" Id="2195636714"/>
+							<MediaRefs>
+								<MediaRef Id="452429"/>
+								<MediaRef Id="47637319"/>
+								<MediaRef Id="915990829"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="2385628198" Id="841620460" Default="true"/>
+							<MediaRefs>
+								<MediaRef Id="459961431"/>
+								<MediaRef Id="604625117"/>
+								<MediaRef Id="654519414"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="2385628198" Id="2185786256"/>
+							<MediaRefs>
+								<MediaRef Id="233155476"/>
+								<MediaRef Id="749665058"/>
+								<MediaRef Id="872258806"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+			</Events>
+			<SwitchGroups>
+				<SwitchGroup Id="2385628198" Name="Footsteps">
+					<Switches>
+						<Switch Id="841620460" Name="Concrete"/>
+						<Switch Id="2185786256" Name="Gravel"/>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{6CD9A629-37D5-1929-9A9F-7D6C97FD4322}</FileHash>
+</SoundBanksInfo>
