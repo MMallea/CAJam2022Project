@@ -93,7 +93,7 @@ public class EnemyController : NetworkBehaviour
                     enemyState = EnemyState.Hunting;
                     break;
                 } 
-                else if (pickupTarget)
+                else if (pickupTarget && !grabScript.heldItem)
                 {
                     target = pickupTarget;
                     agent.destination = target.position;
