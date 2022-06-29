@@ -14,14 +14,15 @@ namespace WV_TestCharacter
         Animator animator;
 
         // Variables to store setter/getter parameter IDs (such as strings) for performance optimization.
-        int isWalkingHash, isRunningHash;
+        int isWalkingHash, isRunningHash, isInteractingHash, isDropItemHash;
+        bool hasMelee, hasShoot;
 
         // Variables to store player input values.
         Vector2 currentMovementInput;
         Vector3 currentMovement, currentRunMovement, appliedMovement;
 
         // Constant variables.
-        bool isMovementPressed, isRunPressed;
+        bool isMovementPressed, isRunPressed, isJumpPressed, isInteractPressed, isDropItemPressed;
         float rotationFactorPerFrame = 1f;
         float runMultiplier = 3f;
 
@@ -37,6 +38,8 @@ namespace WV_TestCharacter
         public Animator Animator { get { return animator; } }
         public bool IsMovementPressed { get { return isMovementPressed; } }
         public bool IsRunPressed { get { return isRunPressed; } }
+        public bool IsInteractPressed { get { return isInteractPressed; } }
+        public bool IsDropItemPressed { get { return isDropItemPressed; } }
         public float GroundedGravity { get { return groundedGravity; } }
         public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
         public float AppliedMovementX { get { return appliedMovement.x; } set { appliedMovement.x = value; } }
@@ -54,12 +57,11 @@ namespace WV_TestCharacter
             characterController = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
 
-            //pauseManager = GetComponent<PauseManager>();
-            //playerEffects = GetComponent<PlayerEffects>();
-
             // Set up parameter hash references.
             isWalkingHash = Animator.StringToHash("isWalking");
             isRunningHash = Animator.StringToHash("isRunning");
+            isInteractingHash = Animator.StringToHash("isInteracting");
+            isDropItemHash = Animator.StringToHash("disableObject");
 
             // Set up player input callbacks.
             playerInput.CharacterControls.Movement.started += OnMovementInput;
@@ -68,6 +70,12 @@ namespace WV_TestCharacter
 
             playerInput.CharacterControls.Running.started += OnRunning;
             playerInput.CharacterControls.Running.canceled += OnRunning;
+
+            playerInput.CharacterControls.PickUpInteract.started += OnInteract;
+            playerInput.CharacterControls.PickUpInteract.canceled += OnInteract;
+
+            playerInput.CharacterControls.DropItem.started += OnDropItem;
+            playerInput.CharacterControls.DropItem.canceled += OnDropItem;
         }
 
         // Update is called once per frame
@@ -115,10 +123,22 @@ namespace WV_TestCharacter
             isRunPressed = ctx.ReadValueAsButton();
         }
 
+        void OnInteract(InputAction.CallbackContext ctx)
+        {
+            isInteractPressed = ctx.ReadValueAsButton();
+        }
+
+        void OnDropItem(InputAction.CallbackContext ctx)
+        {
+            isDropItemPressed = ctx.ReadValueAsButton();
+        }
+
         void handleAnimation()
         {
             bool isWalking = animator.GetBool(isWalkingHash);
             bool isRunning = animator.GetBool(isRunningHash);
+            bool isInteracting = animator.GetBool(isInteractingHash);
+            bool hasDroppedItem = animator.GetBool(isDropItemHash);
 
             if (isMovementPressed && !isWalking)
                 animator.SetBool(isWalkingHash, true);
@@ -129,6 +149,44 @@ namespace WV_TestCharacter
                 animator.SetBool(isRunningHash, true);
             else if ((!isMovementPressed || !isRunPressed) && isRunning)
                 animator.SetBool(isRunningHash, false);
+
+            if ((hasMelee || hasShoot) && isInteractPressed)
+            {
+                animator.SetBool(isInteractingHash, true);
+                Debug.Log("Item has been picked up.");
+
+                if (hasMelee)
+                {
+                    animator.SetBool("equipMelee", true);
+                    hasMelee = true;
+                }
+                else if (hasShoot)
+                {
+                    animator.SetBool("equipShoot", true);
+                    hasShoot = true;
+                }
+            }
+            else if (!isInteractPressed)
+                    animator.SetBool(isInteractingHash, false);
+
+            if (isDropItemPressed && !hasDroppedItem)
+            {
+                animator.SetBool(isDropItemHash, true);
+                Debug.Log("Item has been disabled.");
+
+                if (hasMelee)
+                {
+                    animator.SetBool("equipMelee", false);
+                    hasMelee = false;
+                }
+                else if (hasShoot)
+                {
+                    animator.SetBool("equipShoot", false);
+                    hasShoot = false;
+                }
+            }
+            else if (!isDropItemPressed && hasDroppedItem)
+                animator.SetBool(isDropItemHash, false);
         }
 
         void handleRotation()
@@ -155,6 +213,20 @@ namespace WV_TestCharacter
             {
                 currentMovement.y = groundedGravity;
                 currentRunMovement.y = groundedGravity;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Melee")
+            {
+                Debug.Log("Hit Melee Item");
+                hasMelee = true;
+            }
+            else if (other.gameObject.tag == "Shoot")
+            {
+                Debug.Log("Hit Shoot Item");
+                hasShoot = true;
             }
         }
 
