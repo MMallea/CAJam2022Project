@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 9216436412114309739}
   - component: {fileID: 7193667458534930906}
   - component: {fileID: 3989693370399599689}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pickup_MeleeWeapon
-  m_TagString: DealsDamage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3441210800156671350}
-  - {fileID: 6353308829924758417}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,7 +56,7 @@ MonoBehaviour:
   - {fileID: 7193667458534930906}
   - {fileID: 3989693370399599689}
   SceneTransformProperties:
-    Position: {x: 3.8596969, y: 2.16, z: 17.321888}
+    Position: {x: 8.945, y: 0.477, z: 13.062552}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -81,7 +80,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4767654016579253980}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ca1946bf6f3116945a84a503ca4b1cee, type: 2}
   m_CullingMode: 0
@@ -237,51 +236,6 @@ MonoBehaviour:
   _synchronizeInterval: 0.1
   _clientAuthoritative: 1
   _sendToOwner: 0
---- !u!1 &6538897017332920632
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6353308829924758417}
-  - component: {fileID: 1340742113820128497}
-  m_Layer: 0
-  m_Name: Collision
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6353308829924758417
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6538897017332920632}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5287732553868635238}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1340742113820128497
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6538897017332920632}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4, y: 2, z: 3}
-  m_Center: {x: -0.16, y: 0.34, z: 1.89}
 --- !u!1 &9084479013564946802
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +250,7 @@ GameObject:
   - component: {fileID: 5686768425149916964}
   - component: {fileID: 5686768425149916965}
   - component: {fileID: 3195000526248616628}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,11 +366,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours: []
   SceneTransformProperties:
-    Position: {x: 3.8596969, y: 2.16, z: 17.321888}
+    Position: {x: 8.945, y: 0.477, z: 13.062552}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 3.6163, y: 3.6163, z: 3.6163}
   _isNetworked: 1
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0

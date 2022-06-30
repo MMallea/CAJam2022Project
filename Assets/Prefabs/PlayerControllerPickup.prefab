@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3195658510522424450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.26, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,7 +111,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4435745274448372506}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1.8963137
@@ -229,6 +229,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8170170504807459358}
   followSpeed: 50
   desiredSmoothTime: 0.01
+  offset: {x: 1, y: 0, z: 0}
+  camTargetTransform: {fileID: 3469419700827057112}
 --- !u!114 &6303374902123442788
 MonoBehaviour:
   m_ObjectHideFlags: 0

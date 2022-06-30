@@ -24,16 +24,14 @@ public class MeleeWeapon : Weapon
     protected override void OnValidate()
     {
         base.OnValidate();
-
-        if (weaponTypeSO != null)
-            ChangeColliderSize(weaponTypeSO.range);
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if (animator != null && animator.GetBool("ResetAttack") && animator.GetCurrentAnimatorStateInfo(0).IsName("Melee_Hold") && animator.GetInteger("Attack") != 0)
+        if (animator != null && (animator.GetCurrentAnimatorStateInfo(0).IsName("Melee_Strike1_To_Idle")
+            || animator.GetCurrentAnimatorStateInfo(0).IsName("Melee_Strike2_To_Idle")) && animator.GetInteger("Attack") != 0)
         {
             ResetAttackingAnim();
         }
@@ -44,6 +42,7 @@ public class MeleeWeapon : Weapon
         if (timeUntilNextShot <= 0.0f)
         {
             isFiring = true;
+            SetPlayerMovementOnStrike(equippedByUser, true);
             timeUntilNextShot = attackDelay;
         }
     }
@@ -64,6 +63,8 @@ public class MeleeWeapon : Weapon
     public void ResetAttackingAnim()
     {
         strikeNum = 0;
+        isHarmful = false;
+        SetPlayerMovementOnStrike(equippedByUser, false);
     }
 
     protected void SetAnimatorEnabled(bool prev, bool next, bool asServer)
@@ -74,14 +75,12 @@ public class MeleeWeapon : Weapon
 
     public void SetHarmful(bool prev, bool next, bool asServer)
     {
-        MeshCollider meshCollider = gameObject.GetComponentInChildren<MeshCollider>();
-
         if (meshCollider == null)
             return;
 
         if (next)
         {
-            meshCollider.gameObject.tag = "DealsDamage";
+            meshCollider.gameObject.tag = "Weapon";
         } else
         {
             meshCollider.gameObject.tag = "Untagged";
@@ -113,17 +112,29 @@ public class MeleeWeapon : Weapon
                 meleeAttack = 0;
 
             strikeNum = meleeAttack;
-
+            isHarmful = true;
             isFiring = false;
         }
     }
 
-    private void ChangeColliderSize(float weaponRange)
+    private void SetPlayerMovementOnStrike(GameObject uObj, bool enabled)
     {
+        if (uObj == null)
+            return;
 
+        Game_CharacterController playerController = uObj.GetComponent<Game_CharacterController>();
+        if (playerController)
+        {
+            playerController.disableMovement = enabled;
+            if (enabled)
+            {
+                //Add strike force
+                playerController.AddImpact(playerController.gameObject.transform.forward, 40);
+            }
+        }
     }
 
-    //TODO: Make this happen in server too
+    /*//TODO: Make this happen in server too
     private void OnTriggerEnter(Collider coll)
     {
         if (coll.tag == "Player")
@@ -139,4 +150,5 @@ public class MeleeWeapon : Weapon
             controller.ReceiveDamage(damage);
         }
     }
+    */
 }

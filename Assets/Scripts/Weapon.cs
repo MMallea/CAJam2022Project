@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
 public abstract class Weapon : NetworkBehaviour
 {
     [SerializeField]
-    protected float damage;
+    public float damage;
     [SerializeField]
     protected float attackDelay;
     [SerializeField]
-    protected WeaponType weaponTypeSO;
+    public WeaponType weaponTypeSO;
 
     protected float timeUntilNextShot;
     protected Animator animator;
@@ -23,6 +23,9 @@ public abstract class Weapon : NetworkBehaviour
     {
         base.OnStartNetwork();
         animator = GetComponentInParent<Animator>();
+        animator.enabled = false;
+
+        meshCollider = gameObject.GetComponentInChildren<MeshCollider>();
     }
 
     protected virtual void Update()

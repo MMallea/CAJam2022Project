@@ -12,11 +12,14 @@ using FishNet.Object.Synchronizing;
 public class Game_CharacterController : NetworkBehaviour
 {
     #region Public.
+    public bool disableMovement;
     [SyncVar]
     public float health;
     [SyncVar]
     public Player controllingPlayer;
+    public GrabScript grabScript;
     public Animator animator;
+    public Vector3 impact = Vector3.zero;
     #endregion
 
     #region Serialized.
@@ -28,6 +31,8 @@ public class Game_CharacterController : NetworkBehaviour
     private float jumpHeight;
     [SerializeField]
     private float gravityScale;
+    [SerializeField]
+    private float mass = 3.0f;
     [SerializeField]
     private Transform meshTransform;
     #endregion
@@ -47,6 +52,7 @@ public class Game_CharacterController : NetworkBehaviour
 
         _characterController = GetComponent<CharacterController>();
         ctrlInput = GetComponent<ControllerInput>();
+        grabScript = GetComponent<GrabScript>();
         animator = GetComponentInChildren<Animator>();
         // Set up parameter hash references.
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -56,6 +62,13 @@ public class Game_CharacterController : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
+
+        //Add impact
+        if (impact.magnitude > 0.2) _characterController.Move(impact * Time.deltaTime);
+        // consumes the impact energy each cycle:
+        impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
+
+        if (disableMovement) return;
 
         float speed = ctrlInput.runPressed ? runSpeed : walkSpeed;
 
@@ -69,7 +82,7 @@ public class Game_CharacterController : NetworkBehaviour
         Vector3 desiredVelocity = Vector3.zero;
         if (ctrlInput.input != Vector2.zero)
         {
-            Vector3 forward = Quaternion.Euler(0, -30f, 0) * ctrlInput.camForward;
+            Vector3 forward = ctrlInput.camForward;
             Vector3 right = ctrlInput.camRight;
             desiredVelocity = Vector3.ClampMagnitude(((forward * ctrlInput.input.y) + (right * ctrlInput.input.x)) * speed, speed);
             desiredVelocity.y = 0;
@@ -110,6 +123,13 @@ public class Game_CharacterController : NetworkBehaviour
         }
     }
 
+    public void AddImpact(Vector3 dir, float force)
+    {
+        dir.Normalize();
+        if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
+        impact += dir.normalized * force / mass;
+    }
+
     // plays the footstep audio set up in wwise. CASE SENSITIVE -- "Footsteps"
     private void PlayFootstepAudio()
     {
@@ -125,5 +145,18 @@ public class Game_CharacterController : NetworkBehaviour
     private bool IsMovingOnGround()
     {
         return _characterController.isGrounded && velocity.x != 0 && velocity.z != 0;
+    }
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        if (coll.tag == "Weapon")
+        {
+            PickUpItem item = coll.GetComponentInParent<PickUpItem>();
+            MeleeWeapon weapon = coll.GetComponentInParent<MeleeWeapon>();
+            if (item != grabScript.heldItem && weapon)
+            {
+                ReceiveDamage(weapon.damage);
+            }
+        }
     }
 }

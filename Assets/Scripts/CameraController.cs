@@ -8,11 +8,12 @@ public class CameraController : NetworkBehaviour
 {
     public float followSpeed;
     public float desiredSmoothTime;
+    public Transform camTargetTransform;
+
     private float followPositionY;
     private Camera camMain;
-    private CinemachineFreeLook cineCam;
+    private CinemachineVirtualCamera cineCam;
     private Transform camFollowTransform;
-    private Transform camTargetTransform;
     private CharacterController characterController;
     private Vector3 vel;
 
@@ -32,7 +33,7 @@ public class CameraController : NetworkBehaviour
         if(IsOwner)
         {
             camMain = Camera.main;
-            cineCam = FindObjectOfType<CinemachineFreeLook>();
+            cineCam = FindObjectOfType<CinemachineVirtualCamera>();
             if(cineCam != null && camTargetTransform != null)
             {
                 cineCam.Follow = transform;
@@ -60,16 +61,16 @@ public class CameraController : NetworkBehaviour
             // behavior 2
             if (characterViewPos.y > 0.85f || characterViewPos.y < 0.3f)
             {
-                followPositionY = transform.position.y;
+                followPositionY = camTargetTransform.position.y;
             }
             // behavior 4
             else if (characterController.isGrounded)
             {
-                followPositionY = transform.position.y;
+                followPositionY = camFollowTransform.position.y;
             }
         }
 
-        Vector3 desiredPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Vector3 desiredPosition = new Vector3(camTargetTransform.position.x, camTargetTransform.position.y, camTargetTransform.position.z);
         camFollowTransform.position = Vector3.SmoothDamp(camFollowTransform.position, desiredPosition, ref vel, desiredSmoothTime, followSpeed);
     }
 }

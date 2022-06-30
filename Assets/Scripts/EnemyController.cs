@@ -125,6 +125,7 @@ public class EnemyController : NetworkBehaviour
                         grabScript.GrabItem(item);
                         target = null;
                         enemyState = defaultState;
+                        break;
                     }
                 }
 
@@ -157,15 +158,12 @@ public class EnemyController : NetworkBehaviour
                     enemyState = defaultState;
                     break;
                 }
-                else if (target.gameObject.layer != LayerMask.NameToLayer("Player") || grabScript.heldItem == null)
+                else if (Vector3.Distance(transform.position, target.position) > interactDist + 1 
+                    || target.gameObject.layer != LayerMask.NameToLayer("Player") 
+                    || grabScript.heldItem == null || !target.gameObject.activeInHierarchy)
                 {
                     target = null;
                     enemyState = defaultState;
-                    break;
-                }
-                else if (Vector3.Distance(transform.position, target.position) > interactDist + 1)
-                {
-                    enemyState = EnemyState.Hunting;
                     break;
                 }
 
@@ -177,6 +175,9 @@ public class EnemyController : NetworkBehaviour
                 {
                     grabScript.UseItem();
                     attackDelay = attackDelayMax;
+                    target = null;
+                    enemyState = defaultState;
+                    break;
                 }
 
                 agent.isStopped = true;
@@ -222,8 +223,6 @@ public class EnemyController : NetworkBehaviour
                 if(qualifier != null)
                     meetsQualifier = qualifier(hit);
 
-                Debug.Log("MeetsQualifier: " + meetsQualifier);
-
                 float dist = Vector3.Distance(transform.position, hit.transform.position);
                 if (closestColl == null || dist < closestDist && meetsQualifier)
                 {
@@ -251,12 +250,12 @@ public class EnemyController : NetworkBehaviour
         return Physics.Raycast(transform.position, -Vector3.up, capsuleCollider.bounds.extents.y + 0.1f);
     }
 
-private bool IsMoving()
+    private bool IsMoving()
     {
         return agent.pathPending;
     }
 
-    void HandleAnimation()
+    private void HandleAnimation()
     {
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRunning = animator.GetBool(isRunningHash);
@@ -269,6 +268,19 @@ private bool IsMoving()
         else if (!IsMoving() && isRunning)
         {
             animator.SetBool(isRunningHash, false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        if (coll.tag == "Weapon")
+        {
+            PickUpItem item = coll.GetComponentInParent<PickUpItem>();
+            MeleeWeapon weapon = coll.GetComponentInParent<MeleeWeapon>();
+            if(grabScript.heldItem != item && weapon)
+            {
+                ReceiveDamage(weapon.damage);
+            }
         }
     }
 }
