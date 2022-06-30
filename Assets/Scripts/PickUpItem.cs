@@ -54,6 +54,12 @@ public class PickUpItem : NetworkBehaviour
             transform.position = parent.position;
             transform.rotation = parent.rotation;
         }
+        
+        //Drop if userObj is missing or hidden
+        if(userObj && !userObj.activeInHierarchy)
+        {
+            RemovePickedUp(userObj);
+        }
     }
 
     public void Use(GameObject uObj)
@@ -78,7 +84,9 @@ public class PickUpItem : NetworkBehaviour
     {
         parent = null;
         isPickedUp = false;
-        rBody.AddForce(transform.forward * throwSpeed, ForceMode.VelocityChange);
+        if(userObj.activeInHierarchy)
+            rBody.AddForce(transform.forward * throwSpeed, ForceMode.VelocityChange);
+
         onDropOffEvent?.Invoke(uObj);
     }
 }

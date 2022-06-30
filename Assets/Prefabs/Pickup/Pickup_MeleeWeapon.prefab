@@ -53,8 +53,8 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 3510747806058604072}
   - {fileID: 9216436412114309739}
-  - {fileID: 0}
   - {fileID: 7193667458534930906}
+  - {fileID: 3989693370399599689}
   SceneTransformProperties:
     Position: {x: 8.945, y: 0.477, z: 13.062552}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -80,7 +80,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4767654016579253980}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ca1946bf6f3116945a84a503ca4b1cee, type: 2}
   m_CullingMode: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 135881341521344134}
   _networkObjectCache: {fileID: 135881341521344134}
   _synchronizeParent: 0
@@ -227,9 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 135881341521344134}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 135881341521344134}
   IgnoredParameters: []
   _animator: {fileID: 6611669233048852604}
   _smoothFloats: 1

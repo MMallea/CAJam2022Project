@@ -88,7 +88,7 @@ public class GrabScript : NetworkBehaviour
         heldItem.SetPickedUp(gameObject, handTransform);
     }
 
-    private void DropOffItem()
+    public void DropOffItem()
     {
         heldItem.RemovePickedUp(gameObject);
         heldItem = null;

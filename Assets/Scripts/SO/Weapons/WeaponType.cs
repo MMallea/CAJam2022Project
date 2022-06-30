@@ -6,6 +6,7 @@ using UnityEngine;
 public class WeaponType : ScriptableObject
 {
     public int damage;
+    public int range;
     public string weaponName;
     public Mesh weaponMesh;
     public List<Material> weaponMaterials;

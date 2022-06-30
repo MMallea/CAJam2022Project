@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3195658510522424450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.26, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -111,7 +111,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4435745274448372506}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1.8963137
@@ -176,6 +176,7 @@ MonoBehaviour:
   handTransform: {fileID: 2592313332794873733}
   grabControl: {fileID: -9096466019805096151, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
   releaseControl: {fileID: -1672171581575261225, guid: 089cfa33131aa3e41a94c768fbca8e08, type: 3}
+  heldItem: {fileID: 0}
 --- !u!114 &8170170504807459358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   - {fileID: 1957238344405055465}
   - {fileID: 6303374902123442788}
   - {fileID: 4718556461860092723}
+  - {fileID: 1085123516151030910}
   SceneTransformProperties:
     Position: {x: 0.038379908, y: 2.7412353, z: 8.950413}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -225,8 +227,10 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 8170170504807459358}
   _networkObjectCache: {fileID: 8170170504807459358}
-  followSpeed: 10
+  followSpeed: 50
   desiredSmoothTime: 0.01
+  offset: {x: 1, y: 0, z: 0}
+  camTargetTransform: {fileID: 3469419700827057112}
 --- !u!114 &6303374902123442788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,9 +400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 8170170504807459358}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 8170170504807459358}
   IgnoredParameters: []
   _animator: {fileID: 5997436737922020939}
   _smoothFloats: 1
