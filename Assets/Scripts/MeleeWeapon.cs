@@ -19,6 +19,15 @@ public class MeleeWeapon : Weapon
     private int strikeNum;
 
     private GameObject equippedByUser;
+    private BoxCollider collisionCollider;
+
+    protected override void OnValidate()
+    {
+        base.OnValidate();
+
+        if (weaponTypeSO != null)
+            ChangeColliderSize(weaponTypeSO.range);
+    }
 
     protected override void Update()
     {
@@ -107,6 +116,11 @@ public class MeleeWeapon : Weapon
 
             isFiring = false;
         }
+    }
+
+    private void ChangeColliderSize(float weaponRange)
+    {
+
     }
 
     //TODO: Make this happen in server too

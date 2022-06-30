@@ -69,7 +69,9 @@ public class Game_CharacterController : NetworkBehaviour
         Vector3 desiredVelocity = Vector3.zero;
         if (ctrlInput.input != Vector2.zero)
         {
-            desiredVelocity = Vector3.ClampMagnitude(((ctrlInput.camForward * ctrlInput.input.y) + (ctrlInput.camRight * ctrlInput.input.x)) * speed, speed);
+            Vector3 forward = Quaternion.Euler(0, -30f, 0) * ctrlInput.camForward;
+            Vector3 right = ctrlInput.camRight;
+            desiredVelocity = Vector3.ClampMagnitude(((forward * ctrlInput.input.y) + (right * ctrlInput.input.x)) * speed, speed);
             desiredVelocity.y = 0;
             transform.rotation = Quaternion.LookRotation(desiredVelocity.normalized);
         }

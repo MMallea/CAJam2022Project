@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 9216436412114309739}
   - component: {fileID: 7193667458534930906}
   - component: {fileID: 3989693370399599689}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Pickup_MeleeWeapon
-  m_TagString: Untagged
+  m_TagString: DealsDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3441210800156671350}
+  - {fileID: 6353308829924758417}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,10 +54,10 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 3510747806058604072}
   - {fileID: 9216436412114309739}
-  - {fileID: 0}
   - {fileID: 7193667458534930906}
+  - {fileID: 3989693370399599689}
   SceneTransformProperties:
-    Position: {x: 8.945, y: 0.477, z: 13.062552}
+    Position: {x: 3.8596969, y: 2.16, z: 17.321888}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 135881341521344134}
   _networkObjectCache: {fileID: 135881341521344134}
   _synchronizeParent: 0
@@ -227,15 +228,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 135881341521344134}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 135881341521344134}
   IgnoredParameters: []
   _animator: {fileID: 6611669233048852604}
   _smoothFloats: 1
   _synchronizeInterval: 0.1
   _clientAuthoritative: 1
   _sendToOwner: 0
+--- !u!1 &6538897017332920632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6353308829924758417}
+  - component: {fileID: 1340742113820128497}
+  m_Layer: 0
+  m_Name: Collision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6353308829924758417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538897017332920632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5287732553868635238}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1340742113820128497
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538897017332920632}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 2, z: 3}
+  m_Center: {x: -0.16, y: 0.34, z: 1.89}
 --- !u!1 &9084479013564946802
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +296,7 @@ GameObject:
   - component: {fileID: 5686768425149916964}
   - component: {fileID: 5686768425149916965}
   - component: {fileID: 3195000526248616628}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,11 +412,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours: []
   SceneTransformProperties:
-    Position: {x: 8.945, y: 0.477, z: 13.062552}
+    Position: {x: 3.8596969, y: 2.16, z: 17.321888}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 3.6163, y: 3.6163, z: 3.6163}
   _isNetworked: 1
-  _hasParentNetworkObjectAtEdit: 0
+  _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 0
