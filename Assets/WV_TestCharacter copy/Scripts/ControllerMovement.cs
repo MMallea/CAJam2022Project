@@ -171,7 +171,7 @@ namespace WV_TestCharacter
                 return; 
             }
            //animator event
-            AkSoundEngine.PostEvent("Footsteps", gameObject);
+            //AkSoundEngine.PostEvent("Footsteps", gameObject);
             
         }
 
