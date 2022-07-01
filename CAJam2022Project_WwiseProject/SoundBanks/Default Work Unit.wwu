@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{5DF28184-11E4-4DA1-8A92-41492A9827EB}" SchemaVersion="110">
+<WwiseDocument Type="WorkUnit" ID="{34745EDF-F474-4C1D-A3F6-CB06AE6E0D33}" SchemaVersion="103">
 	<SoundBanks>
-		<WorkUnit Name="Default Work Unit" ID="{5DF28184-11E4-4DA1-8A92-41492A9827EB}" PersistMode="Standalone">
+		<WorkUnit Name="Default Work Unit" ID="{34745EDF-F474-4C1D-A3F6-CB06AE6E0D33}" PersistMode="Standalone">
 			<ChildrenList>
-				<SoundBank Name="Main" ID="{E5ABF294-DA82-46C3-A686-3D8D8D458CB3}">
+				<SoundBank Name="Main" ID="{FA2BA611-7B08-4188-BE37-368B40D35C5C}">
 					<ObjectInclusionList>
-						<ObjectRef Name="Footsteps" ID="{61DAFB4E-8776-4E58-9785-8B63A116C933}" WorkUnitID="{2878450E-1E51-41ED-9B09-FC4D55889618}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Footsteps" ID="{FFE0B00F-C6C2-40E1-9C8F-E0B0644A39D4}" WorkUnitID="{68ECC961-F446-4FA6-9947-E98186BC1284}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

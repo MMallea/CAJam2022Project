@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{A0B8BD85-BCCA-4D98-8592-0D04739EEC2C}" SchemaVersion="110">
+<WwiseDocument Type="WorkUnit" ID="{7F0C7D0C-AA52-4A3D-B35E-586C32A939F7}" SchemaVersion="103">
 	<Switches>
-		<WorkUnit Name="Default Work Unit" ID="{A0B8BD85-BCCA-4D98-8592-0D04739EEC2C}" PersistMode="Standalone">
+		<WorkUnit Name="Default Work Unit" ID="{7F0C7D0C-AA52-4A3D-B35E-586C32A939F7}" PersistMode="Standalone">
 			<ChildrenList>
-				<SwitchGroup Name="Footsteps" ID="{63638846-5E32-454F-AEC8-6FC45F047F20}">
+				<SwitchGroup Name="Footsteps" ID="{101288E1-C255-4114-8FE8-01321F783463}">
 					<ChildrenList>
-						<Switch Name="Dirt" ID="{928B6902-976E-460E-8260-AF3B31965031}"/>
-						<Switch Name="Concrete" ID="{A1B400FA-527D-4B75-8EAD-D5C1733450B9}"/>
-						<Switch Name="Gravel" ID="{F50F41FD-2544-4FDB-951B-F6D05F2A624B}"/>
+						<Switch Name="Concrete" ID="{8428E081-113A-40B1-A097-F3C9294AED84}"/>
+						<Switch Name="Dirt" ID="{140771EE-2ED7-4F1E-A73C-234176C02790}"/>
+						<Switch Name="Grass" ID="{E8C341E7-E00E-4903-A691-F9834F602B7A}"/>
+						<Switch Name="Gravel" ID="{B685D352-7809-49D7-93D9-6C7213C1C10C}"/>
 					</ChildrenList>
 				</SwitchGroup>
 			</ChildrenList>

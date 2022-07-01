@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{F6B2880C-85E5-47FA-A126-645B5DFD9ACC}" SchemaVersion="110">
+<WwiseDocument Type="WorkUnit" ID="{F6B2880C-85E5-47FA-A126-645B5DFD9ACC}" SchemaVersion="103">
 	<Conversions>
 		<WorkUnit Name="Factory Conversion Settings" ID="{F6B2880C-85E5-47FA-A126-645B5DFD9ACC}" PersistMode="Standalone">
 			<ChildrenList>
@@ -9,42 +9,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>3</Value>
-										<Value Platform="Mac">3</Value>
-										<Value Platform="Windows">3</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{9AA75BA8-25E9-4843-BF1C-3137FD6055B8}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{BF5D99A9-4F52-432E-BBE9-65F6C32F9BA9}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{583FA2A1-CDD5-4189-9023-94B4094D7DEC}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -52,42 +43,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>1</Value>
-										<Value Platform="Mac">1</Value>
-										<Value Platform="Windows">1</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{C5276DAF-A4D3-4325-896B-8BE27D4AC518}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{0D5F4E75-68E7-48FE-8F0B-61283AC82C3C}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{2A237DA2-A54B-4B75-A6B3-547C8A1DFEF4}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -95,42 +77,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>2</Value>
-										<Value Platform="Mac">2</Value>
-										<Value Platform="Windows">2</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{5902BD6A-FC44-4742-948A-B78F6F47DF6F}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{7B236163-E6F1-4E73-A2F0-2AD47F05777D}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{CE3D6243-B1F0-4450-B580-E12770D53F0C}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -138,41 +111,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{516F5DBE-C3EB-4405-89F6-02EB5BF890F6}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{C7EBB729-3336-4C90-9209-2BDB7ED152A6}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{5F534328-DF07-49B0-887C-991084AA5E11}" PluginName="Vorbis" CompanyID="0" PluginID="4"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -180,45 +145,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{F5E028F3-B250-4816-990A-8DFF8144FC3F}" PluginName="Vorbis" CompanyID="0" PluginID="4">
-										<PropertyList>
-											<Property Name="QualityFactor" Type="Real32" Value="0"/>
-										</PropertyList>
-									</ConversionPlugin>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{524D8939-4D75-4FB6-8632-2C9EA5D7DF05}" PluginName="Vorbis" CompanyID="0" PluginID="4">
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{11DBC1C6-A78D-4340-A59D-B04ED52562C0}" PluginName="Vorbis" CompanyID="0" PluginID="4">
 										<PropertyList>
 											<Property Name="QualityFactor" Type="Real32" Value="0"/>
 										</PropertyList>
@@ -230,45 +183,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{DDCF0573-AE77-4B60-816B-A69B907561B8}" PluginName="Vorbis" CompanyID="0" PluginID="4">
-										<PropertyList>
-											<Property Name="QualityFactor" Type="Real32" Value="2"/>
-										</PropertyList>
-									</ConversionPlugin>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{2A9EF258-2154-4F34-A77C-30DA617102C6}" PluginName="Vorbis" CompanyID="0" PluginID="4">
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{5D3B8B77-1CFD-4851-92C4-9B400886675D}" PluginName="Vorbis" CompanyID="0" PluginID="4">
 										<PropertyList>
 											<Property Name="QualityFactor" Type="Real32" Value="2"/>
 										</PropertyList>
@@ -284,41 +225,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{1279B61A-681D-474A-AB2B-D0DD12CE1190}" PluginName="PCM" CompanyID="0" PluginID="1"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{45C682CD-68C0-4B3A-800F-11E7141F1D16}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{2B70EAA4-7E9B-4E6F-BB75-85B7E1D6F15D}" PluginName="PCM" CompanyID="0" PluginID="1"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -326,42 +259,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>1</Value>
-										<Value Platform="Mac">1</Value>
-										<Value Platform="Windows">1</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{BE3737C9-2CDA-4AA6-99B2-E4CD46292F06}" PluginName="PCM" CompanyID="0" PluginID="1"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{9B9B7B50-4499-455D-A231-FAB5DD86BF3F}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{A5F727CF-2EB8-4502-B32F-EEA11B9EF5F2}" PluginName="PCM" CompanyID="0" PluginID="1"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -369,42 +293,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>2</Value>
-										<Value Platform="Mac">2</Value>
-										<Value Platform="Windows">2</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{A44BDA13-2521-4359-B097-FC00E6E1A309}" PluginName="PCM" CompanyID="0" PluginID="1"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{EB0D9A60-2E0F-417E-B615-0AC887CC3E29}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{E12A0D67-4EF6-4C93-BC15-E3EADC1694EF}" PluginName="PCM" CompanyID="0" PluginID="1"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -412,42 +327,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>3</Value>
-										<Value Platform="Mac">3</Value>
-										<Value Platform="Windows">3</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{8AFD03E3-753A-41EB-ADE9-4ED1B710B6FC}" PluginName="PCM" CompanyID="0" PluginID="1"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{AFCB5DB6-81F6-432D-AC6A-5AF195C3C163}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{24BCE860-04AB-430D-BBC0-6D29BB36FD36}" PluginName="PCM" CompanyID="0" PluginID="1"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -459,41 +365,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{62E98EBE-9E39-446A-A302-1F9FE285EFD7}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{13390774-CDF6-4AD1-BEF1-E66909FB5000}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{F957F696-06B2-4AAD-8094-A2A4A44CCB2B}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -501,42 +399,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>1</Value>
-										<Value Platform="Mac">1</Value>
-										<Value Platform="Windows">1</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{820DD914-B86E-4E07-8BDA-002CDDE8F1EE}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{27C62597-4D4D-4470-AF72-46D1DE46E9C9}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{8EB43490-15BF-4285-B695-201E939203E2}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -544,42 +433,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>2</Value>
-										<Value Platform="Mac">2</Value>
-										<Value Platform="Windows">2</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{192093DD-F62E-4441-ADF6-AC05DB669181}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{47F3DCEC-F93F-4AD7-81BF-980B390B7743}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{9F292659-A320-4220-A063-F5327A1400DF}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>
@@ -587,42 +467,33 @@
 							<PropertyList>
 								<Property Name="Channels" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">4</Value>
-										<Value Platform="Windows">4</Value>
+										<Value>4</Value>
 									</ValueList>
 								</Property>
 								<Property Name="LRMix" Type="Real64">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MaxSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="MinSampleRate" Type="int32">
 									<ValueList>
-										<Value Platform="Mac">0</Value>
-										<Value Platform="Windows">0</Value>
+										<Value>0</Value>
 									</ValueList>
 								</Property>
 								<Property Name="SampleRate" Type="int32">
 									<ValueList>
 										<Value>3</Value>
-										<Value Platform="Mac">3</Value>
-										<Value Platform="Windows">3</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
 							<ConversionPluginInfoList>
-								<ConversionPluginInfo Platform="Mac">
-									<ConversionPlugin Name="" ID="{A245CC9A-69E1-4654-8B85-2F04C9AD0FCC}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
-								</ConversionPluginInfo>
-								<ConversionPluginInfo Platform="Windows">
-									<ConversionPlugin Name="" ID="{A6E7376F-024F-4453-8424-4B4D2BB3A9A9}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
+								<ConversionPluginInfo>
+									<ConversionPlugin Name="" ID="{35F3A4A0-4263-45FE-B829-7AB849D3403C}" PluginName="ADPCM" CompanyID="0" PluginID="2"/>
 								</ConversionPluginInfo>
 							</ConversionPluginInfoList>
 						</Conversion>

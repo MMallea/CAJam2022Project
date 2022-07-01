@@ -26,6 +26,7 @@ namespace AK
             {
                 static const AkUniqueID CONCRETE = 841620460U;
                 static const AkUniqueID DIRT = 2195636714U;
+                static const AkUniqueID GRASS = 4248645337U;
                 static const AkUniqueID GRAVEL = 2185786256U;
             } // namespace SWITCH
         } // namespace FOOTSTEPS
