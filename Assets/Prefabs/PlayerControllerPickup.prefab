@@ -161,6 +161,7 @@ MonoBehaviour:
   jumpHeight: 10
   gravityScale: 2
   mass: 3
+  invincibilityTime: 1
   meshTransform: {fileID: 0}
   isJumping: 0
 --- !u!114 &6681760362982913237
@@ -178,9 +179,19 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 8170170504807459358}
   _networkObjectCache: {fileID: 8170170504807459358}
+  defaultEquipped: {fileID: 0}
   holdingItem: 0
-  heldItem: {fileID: 0}
   handTransform: {fileID: 2592313332794873733}
+  heldItem: {fileID: 0}
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onPickupEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDropOffEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8170170504807459358
 MonoBehaviour:
   m_ObjectHideFlags: 0

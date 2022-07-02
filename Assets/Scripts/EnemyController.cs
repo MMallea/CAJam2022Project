@@ -31,7 +31,10 @@ public class EnemyController : NetworkBehaviour
     private float jumpHeight;
     [SerializeField]
     private float attackDelayMax = 1;
+    [SerializeField]
+    private float invincibilityTime = 0.1f;
     [Header("Detection Ranges")]
+    [SerializeField]
     private float interactDist = 1f;
     [SerializeField]
     private float detectionDist = 8f;
@@ -42,12 +45,13 @@ public class EnemyController : NetworkBehaviour
     private List<Transform> patrolPoints = new List<Transform>();
     [Header("UI references")]
     [SerializeField]
-    private Image healthBarFill;
+    private CharacterUI enemyUI;
     #endregion
 
     #region Private.
     // Variables to store setter/getter parameter IDs (such as strings) for performance optimization.
     private bool isInvincible;
+    private bool prevPathPending;
     private int patrolPointIndex = 0;
     private int isWalkingHash, isRunningHash;
     private float attackDelay;
@@ -55,6 +59,7 @@ public class EnemyController : NetworkBehaviour
 
     private Rigidbody rigidBody;
     private Transform target;
+    private PickUpItem targetPickupItem;
     private NavMeshAgent agent;
     private Canvas enemyCanvas;
     private GrabScript grabScript;
@@ -83,7 +88,7 @@ public class EnemyController : NetworkBehaviour
         attackDelay = attackDelayMax;
         healthMax = health;
 
-        SetEnemyHealthShown(false);
+        if(enemyUI) enemyUI.SetHealthShown(false);
     }
 
     private void Update()
@@ -95,6 +100,16 @@ public class EnemyController : NetworkBehaviour
 
         //Update holding item in animator (only melee for now)
         animator.SetBool("equipMelee", grabScript.holdingItem);
+
+        HandleAI();
+    }
+
+    #region NavMesh
+
+    private void HandleAI()
+    {
+        if (agent == null || !agent.enabled)
+            return;
 
         switch (enemyState)
         {
@@ -108,17 +123,18 @@ public class EnemyController : NetworkBehaviour
 
                     return false;
                 });
-                if(playerTarget && grabScript.holdingItem)
+                if (playerTarget && grabScript.holdingItem)
                 {
                     target = playerTarget;
                     agent.destination = target.position;
                     enemyState = EnemyState.Hunting;
-                    SetEnemyHealthShown(true);
+                    if (enemyUI) enemyUI.SetHealthShown(true);
                     break;
-                } 
+                }
                 else if (pickupTarget && !grabScript.holdingItem)
                 {
                     target = pickupTarget;
+                    targetPickupItem = target.GetComponentInParent<PickUpItem>();
                     agent.destination = target.position;
                     enemyState = EnemyState.CollectWeapon;
                     break;
@@ -128,31 +144,39 @@ public class EnemyController : NetworkBehaviour
                     GoToNextPatrolPoint();
                 break;
             case EnemyState.CollectWeapon:
-                if(target == null)
+                if (target == null)
                 {
                     enemyState = defaultState;
                     break;
-                } 
-                else if (target.gameObject.layer != LayerMask.NameToLayer("Pickup"))
+                }
+                else if (target.gameObject.layer != LayerMask.NameToLayer("Pickup") || (targetPickupItem && targetPickupItem.isPickedUp))
                 {
                     target = null;
                     enemyState = defaultState;
                     break;
                 }
 
-                if(agent.remainingDistance <= interactDist)
+                if (!agent.pathPending && agent.remainingDistance <= interactDist)
                 {
-                    PickUpItem item = target.GetComponentInParent<PickUpItem>();
-                    if (item)
+                    if(Vector3.Distance(transform.position, target.position) <= interactDist)
                     {
-                        grabScript.GrabItem(item);
+                        PickUpItem item = target.GetComponentInParent<PickUpItem>();
+                        if (item)
+                        {
+                            grabScript.GrabItem(item);
+                            target = null;
+                            enemyState = defaultState;
+                            break;
+                        }
+                    } else
+                    {
                         target = null;
                         enemyState = defaultState;
                         break;
                     }
                 }
 
-                agent.destination = target.position;
+                //agent.destination = target.position;
                 break;
             case EnemyState.Hunting:
                 if (target == null || agent.remainingDistance > lostDist)
@@ -167,7 +191,7 @@ public class EnemyController : NetworkBehaviour
                     break;
                 }
 
-                if (agent.remainingDistance <= interactDist)
+                if (!agent.pathPending && agent.remainingDistance <= interactDist)
                 {
                     enemyState = EnemyState.Attacking;
                     break;
@@ -181,8 +205,8 @@ public class EnemyController : NetworkBehaviour
                     enemyState = defaultState;
                     break;
                 }
-                else if (Vector3.Distance(transform.position, target.position) > interactDist + 1 
-                    || target.gameObject.layer != LayerMask.NameToLayer("Player") 
+                else if (Vector3.Distance(transform.position, target.position) > interactDist + 1
+                    || target.gameObject.layer != LayerMask.NameToLayer("Player")
                     || !grabScript.holdingItem || !target.gameObject.activeInHierarchy)
                 {
                     target = null;
@@ -205,20 +229,6 @@ public class EnemyController : NetworkBehaviour
 
                 agent.isStopped = true;
                 break;
-        }
-    }
-
-    public void ReceiveDamage(float amount)
-    {
-        if (!IsSpawned || isInvincible) return;
-
-        if ((health -= amount) <= 0.0f)
-        {
-            Despawn();
-        } else
-        {
-            SetEnemyHealthShown(true);
-            UpdateHealthBar();
         }
     }
 
@@ -251,7 +261,7 @@ public class EnemyController : NetworkBehaviour
                     meetsQualifier = qualifier(hit);
 
                 float dist = Vector3.Distance(transform.position, hit.transform.position);
-                if (closestColl == null || dist < closestDist && meetsQualifier)
+                if ((closestColl == null || dist < closestDist) && meetsQualifier)
                 {
                     closestColl = hit;
                     closestDist = dist;
@@ -265,39 +275,8 @@ public class EnemyController : NetworkBehaviour
         return null;
     }
 
-    private void SetEnemyHealthShown(bool enabled)
-    {
-        if (enemyCanvas != null)
-        {
-            enemyCanvas.gameObject.SetActive(enabled);
-        }
-    }
-
-    private void UpdateHealthBar()
-    {
-        if(healthBarFill != null)
-        {
-            healthBarFill.fillAmount = (health / healthMax);
-        }
-    }
-
-    // plays the footstep audio set up in wwise. CASE SENSITIVE -- "Footsteps"
-    private void PlayFootstepAudio()
-    {
-        //animator event
-        //AkSoundEngine.PostEvent("Footsteps", gameObject);
-
-    }
-
-    private bool IsGrounded() {
-        return Physics.Raycast(transform.position, -Vector3.up, capsuleCollider.bounds.extents.y + 0.1f);
-    }
-
-    private bool IsMoving()
-    {
-        return agent.velocity.sqrMagnitude > 0;
-    }
-
+    #endregion
+    #region Visuals
     private void HandleAnimation()
     {
         bool isWalking = animator.GetBool(isWalkingHash);
@@ -313,6 +292,41 @@ public class EnemyController : NetworkBehaviour
             animator.SetBool(isRunningHash, false);
         }
     }
+    #endregion
+    #region Getters/Setters
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, capsuleCollider.bounds.extents.y + 0.1f);
+    }
+
+    private bool IsMoving()
+    {
+        return agent.velocity.sqrMagnitude > 0 || agent.pathPending;
+    }
+    #endregion
+
+    public void ReceiveDamage(float amount)
+    {
+        if (!IsSpawned || isInvincible) return;
+
+        if ((health -= amount) <= 0.0f)
+        {
+            Despawn();
+        }
+        else
+        {
+            if (enemyUI) enemyUI.SetHealthShown(true);
+            if (enemyUI) enemyUI.UpdateHealthBar(health, healthMax);
+        }
+    }
+
+    // plays the footstep audio set up in wwise. CASE SENSITIVE -- "Footsteps"
+    private void PlayFootstepAudio()
+    {
+        //animator event
+        //AkSoundEngine.PostEvent("Footsteps", gameObject);
+
+    }
 
     private void OnTriggerEnter(Collider coll)
     {
@@ -323,6 +337,7 @@ public class EnemyController : NetworkBehaviour
             if(grabScript.heldItem != item && weapon)
             {
                 ReceiveDamage(weapon.damage);
+                weapon.DecreaseDurability();
 
                 //Set invincible and knockback
                 if(gameObject.activeInHierarchy)
@@ -331,23 +346,22 @@ public class EnemyController : NetworkBehaviour
                     if (knockbackCoroutine != null)
                         StopCoroutine(knockbackCoroutine);
 
-                    knockbackCoroutine = KnockbackNavMesh(-(coll.transform.position - transform.position).normalized);
+                    knockbackCoroutine = Knockback(-(coll.transform.position - transform.position).normalized, weapon.strikeForce * 100);
                     StartCoroutine(knockbackCoroutine);
                 }
             }
         }
     }
 
-    private IEnumerator KnockbackNavMesh(Vector3 dirOfTrigger)
+    private IEnumerator Knockback(Vector3 dirOfTrigger, float force)
     {
-
         agent.enabled = false;
         rigidBody.isKinematic = false;
         capsuleCollider.isTrigger = false;
 
         // And finally we add force in the direction of dir and multiply it by force. 
         // This will push back the player
-        rigidBody.AddForce(new Vector3(dirOfTrigger.x, 1, dirOfTrigger.z) * 500);
+        rigidBody.AddForce(new Vector3(dirOfTrigger.x, 1, dirOfTrigger.z) * force);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -360,8 +374,10 @@ public class EnemyController : NetworkBehaviour
         capsuleCollider.isTrigger = true;
         isInvincible = false;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(invincibilityTime);
 
+        enemyState = defaultState;
+        target = null;
         agent.enabled = true;
     }
 }

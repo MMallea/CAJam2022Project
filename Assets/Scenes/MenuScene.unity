@@ -645,7 +645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startInOffline: 0
   _offlineScene: Assets/Scenes/MenuScene.unity
-  _onlineScene: Assets/Scenes/EnvironmentScene.unity
+  _onlineScene: Assets/Scenes/DevScenes/MannyScene.unity
   _replaceScenes: 0
 --- !u!114 &1126135768
 MonoBehaviour:

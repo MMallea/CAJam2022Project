@@ -7,13 +7,13 @@ using UnityEngine.Events;
 
 public class PickUpItem : NetworkBehaviour
 {
-    [SyncVar]
+    [SyncVar(OnChange = nameof(SetVariablesPickedUp))]
     public bool isPickedUp;
 
     public int throwSpeed = 2;
 
     public Transform parent;
-    private GameObject userObj;
+    [HideInInspector]public GameObject userObj;
 
     public UnityEvent<GameObject> onPickedUpEvent;
     public UnityEvent<GameObject> onDropOffEvent;
@@ -31,24 +31,6 @@ public class PickUpItem : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isPickedUp)
-        {
-            if(!rBody.isKinematic)
-            {
-                rBody.isKinematic = true;
-                rBody.velocity = Vector3.zero;
-                rBody.angularVelocity = Vector3.zero;
-                meshCollider.isTrigger = true;
-            }
-        } else
-        {
-            if (rBody.isKinematic)
-            {
-                rBody.isKinematic = false;
-                meshCollider.isTrigger = false;
-            }
-        }
-
         if (parent)
         {
             transform.position = parent.position;
@@ -88,5 +70,29 @@ public class PickUpItem : NetworkBehaviour
             rBody.AddForce(transform.forward * throwSpeed, ForceMode.VelocityChange);
 
         onDropOffEvent?.Invoke(uObj);
+    }
+
+    private void SetVariablesPickedUp(bool prev, bool next, bool isServer)
+    {
+        Debug.Log(transform.name);
+
+        if (next)
+        {
+            if (!rBody.isKinematic)
+            {
+                rBody.isKinematic = true;
+                rBody.velocity = Vector3.zero;
+                rBody.angularVelocity = Vector3.zero;
+                meshCollider.isTrigger = true;
+            }
+        }
+        else
+        {
+            if (rBody.isKinematic)
+            {
+                rBody.isKinematic = false;
+                meshCollider.isTrigger = false;
+            }
+        }
     }
 }

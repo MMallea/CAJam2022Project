@@ -3,19 +3,24 @@ using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class GrabScript : NetworkBehaviour
 {
     [Header("Default")]
-    public GameObject defaultEquipped;
+    public PickUpItem equipOnStart;
 
     [SyncVar]
     public bool holdingItem;
-    [HideInInspector]
-    public PickUpItem heldItem;
     [SerializeField]
     private Transform handTransform;
+    [HideInInspector]
+    public PickUpItem heldItem;
+    [HideInInspector] public UnityEvent onUseEvent;
+    [HideInInspector] public UnityEvent onPickupEvent;
+    [HideInInspector] public UnityEvent onDropOffEvent;
+
     private ControllerInput ctrlInput;
 
     private CameraController cameraController;
@@ -26,18 +31,12 @@ public class GrabScript : NetworkBehaviour
 
         cameraController = GetComponent<CameraController>();
         ctrlInput = GetComponent<ControllerInput>();
-    }
 
-    public void Start()
-    {
         //Spawn defaultEquipped as equipped
-        //if (defaultEquipped != null)
-        //{
-        //    GameObject defaultPrefab = Instantiate(defaultEquipped, Vector3.zero, Quaternion.identity, null);
-        //    PickUpItem defaultItem = defaultEquipped.GetComponent<PickUpItem>();
-        //    if (defaultItem != null)
-        //        GrabItem(defaultItem);
-        //}
+        if (equipOnStart != null)
+        {
+            GrabItem(equipOnStart);
+        }
     }
 
     private void Update()
@@ -84,13 +83,19 @@ public class GrabScript : NetworkBehaviour
     {
         if (heldItem != null)
             heldItem.Use(gameObject);
+
+        onUseEvent?.Invoke();
     }
 
     public void GrabItem(PickUpItem item)
     {
         heldItem = item;
         holdingItem = true;
+        Debug.Log("Held Item: " + heldItem);
+        Debug.Log("GameObject: " + gameObject.name);
+        Debug.Log("Hand Transform: " + handTransform.name);
         heldItem.SetPickedUp(gameObject, handTransform);
+        onPickupEvent?.Invoke();
     }
 
     public void DropOffItem()
@@ -98,5 +103,6 @@ public class GrabScript : NetworkBehaviour
         heldItem.RemovePickedUp(gameObject);
         heldItem = null;
         holdingItem = false;
+        onDropOffEvent?.Invoke();
     }
 }

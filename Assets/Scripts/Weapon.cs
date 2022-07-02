@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 
 public abstract class Weapon : NetworkBehaviour
 {
-    [SerializeField]
     public float damage;
-    [SerializeField]
-    protected float attackDelay;
+    public float attackDelay;
+    public int durability = 5;
+    public float strikeForce = 5;
     [SerializeField]
     public WeaponType weaponTypeSO;
 
@@ -39,6 +39,7 @@ public abstract class Weapon : NetworkBehaviour
         if(weaponTypeSO != null)
         {
             damage = weaponTypeSO.damage;
+            durability = weaponTypeSO.durability;
 
             if (meshFilter == null) meshFilter = GetComponentInChildren<MeshFilter>();
             if (meshFilter != null && weaponTypeSO.weaponMesh != null) meshFilter.mesh = weaponTypeSO.weaponMesh;
@@ -48,6 +49,28 @@ public abstract class Weapon : NetworkBehaviour
 
             if (meshCollider == null) meshCollider = GetComponentInChildren<MeshCollider>();
             if (meshCollider != null) meshCollider.sharedMesh = weaponTypeSO.weaponMesh;
+        }
+    }
+
+    public void DecreaseDurability()
+    {
+        PickUpItem item = GetComponent<PickUpItem>();
+        if(item != null && item.userObj)
+        {
+            //Only player-held equipment loses durability
+            Game_CharacterController playerController = item.userObj.GetComponent<Game_CharacterController>();
+            if(playerController)
+            {
+                durability--;
+                playerController.UpdateWeaponDurabilityUI();
+            }
+        } else
+            //Just decrease durability
+            durability--;
+
+        if(durability == 0)
+        {
+            Despawn();
         }
     }
 

@@ -16,6 +16,6 @@ public class MainView : View
 
         if (player == null || player.controlledCharacter == null) return;
 
-        healthText.text = "HP: " + player.controlledCharacter.health;
+        //healthText.text = "HP: " + player.controlledCharacter.health;
     }
 }
