@@ -12,14 +12,19 @@ public class ControllerInput : NetworkBehaviour
     private InputActionReference jumpControl;
     [SerializeField]
     private InputActionReference runControl;
+    [SerializeField]
+    private InputActionReference grabControl;
+    [SerializeField]
+    private InputActionReference releaseControl;
 
-    [HideInInspector] public bool jump;
     [HideInInspector] public bool runPressed;
+    [HideInInspector] public bool jumpPressed;
+    [HideInInspector] public bool grabPressed;
+    [HideInInspector] public bool releasePressed;
     [HideInInspector] public Vector2 input = Vector2.zero;
     [HideInInspector] public Vector3 camForward = Vector3.zero;
     [HideInInspector] public Vector3 camRight = Vector3.zero;
 
-    private bool jumpPressed;
     private CameraController cameraController;
     private Game_CharacterController controller;
 
@@ -29,7 +34,6 @@ public class ControllerInput : NetworkBehaviour
         base.OnStartNetwork();
 
         controller = GetComponent<Game_CharacterController>();
-
         cameraController = GetComponent<CameraController>();
 
         jumpControl.action.started += context =>
@@ -48,6 +52,22 @@ public class ControllerInput : NetworkBehaviour
         {
             runPressed = false;
         };
+        grabControl.action.started += context =>
+        {
+            grabPressed = true;
+        };
+        grabControl.action.canceled += context =>
+        {
+            grabPressed = false;
+        };
+        releaseControl.action.started += context =>
+        {
+            releasePressed = true;
+        };
+        releaseControl.action.canceled += context =>
+        {
+            releasePressed = false;
+        };
     }
 
     private void OnEnable()
@@ -55,6 +75,8 @@ public class ControllerInput : NetworkBehaviour
         movementControl.action.Enable();
         jumpControl.action.Enable();
         runControl.action.Enable();
+        grabControl.action.Enable();
+        releaseControl.action.Enable();
     }
 
     private void OnDisable()
@@ -62,6 +84,8 @@ public class ControllerInput : NetworkBehaviour
         movementControl.action.Disable();
         jumpControl.action.Disable();
         runControl.action.Disable();
+        grabControl.action.Disable();
+        releaseControl.action.Disable();
     }
 
     private void Update()
@@ -75,14 +99,5 @@ public class ControllerInput : NetworkBehaviour
             camForward = cameraController.GetCamMain().transform.forward;
             camRight = cameraController.GetCamMain().transform.right;
         }
-
-        if (!jump)
-            jump = jumpPressed;
-    }
-
-    public void HasJumped()
-    {
-        jump = false;
-        jumpPressed = false;
     }
 }

@@ -8,6 +8,7 @@ using FishNet.Object.Prediction;
 using FishNet.Example.Prediction.CharacterControllers;
 using FishNet.Object.Synchronizing;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using System;
 
 public class EnemyController : NetworkBehaviour
@@ -19,38 +20,46 @@ public class EnemyController : NetworkBehaviour
     #region Public.
     [SyncVar]
     public float health;
-
     public Animator animator;
     #endregion
 
     #region Serialized.
+    [Header("Stats")]
     [SerializeField]
     private float moveSpeed = 6f;
     [SerializeField]
     private float jumpHeight;
     [SerializeField]
+    private float attackDelayMax = 1;
+    [Header("Detection Ranges")]
     private float interactDist = 1f;
     [SerializeField]
     private float detectionDist = 8f;
     [SerializeField]
     private float lostDist = 15f;
-    [SerializeField]
-    private float attackDelayMax = 1;
+    [Header("Patrolling")]
     [SerializeField]
     private List<Transform> patrolPoints = new List<Transform>();
+    [Header("UI references")]
+    [SerializeField]
+    private Image healthBarFill;
     #endregion
 
     #region Private.
     // Variables to store setter/getter parameter IDs (such as strings) for performance optimization.
+    private bool isInvincible;
     private int patrolPointIndex = 0;
     private int isWalkingHash, isRunningHash;
     private float attackDelay;
+    private float healthMax;
 
     private Rigidbody rigidBody;
     private Transform target;
     private NavMeshAgent agent;
+    private Canvas enemyCanvas;
     private GrabScript grabScript;
     private CapsuleCollider capsuleCollider;
+    private IEnumerator knockbackCoroutine;
 
     #endregion
 
@@ -59,25 +68,38 @@ public class EnemyController : NetworkBehaviour
         base.OnStartNetwork();
 
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = moveSpeed;
-        attackDelay = attackDelayMax;
-
         rigidBody = GetComponent<Rigidbody>();
         grabScript = GetComponent<GrabScript>();
+        enemyCanvas = GetComponentInChildren<Canvas>();
         animator = GetComponentInChildren<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+
         // Set up parameter hash references.
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
+
+        //Update/set variables
+        agent.speed = moveSpeed;
+        attackDelay = attackDelayMax;
+        healthMax = health;
+
+        SetEnemyHealthShown(false);
     }
 
     private void Update()
     {
+        if (!agent.enabled)
+            return;
+
         HandleAnimation();
 
-        switch(enemyState)
+        //Update holding item in animator (only melee for now)
+        animator.SetBool("equipMelee", grabScript.holdingItem);
+
+        switch (enemyState)
         {
             case EnemyState.Patrolling:
+                agent.isStopped = false;
                 Transform playerTarget = GetClosestTarget(detectionDist, 1 << LayerMask.NameToLayer("Player"), null);
                 Transform pickupTarget = GetClosestTarget(10000, 1 << LayerMask.NameToLayer("Pickup"), (Collider coll) => {
                     PickUpItem item = coll.GetComponentInParent<PickUpItem>();
@@ -86,14 +108,15 @@ public class EnemyController : NetworkBehaviour
 
                     return false;
                 });
-                if(playerTarget && grabScript.heldItem != null)
+                if(playerTarget && grabScript.holdingItem)
                 {
                     target = playerTarget;
                     agent.destination = target.position;
                     enemyState = EnemyState.Hunting;
+                    SetEnemyHealthShown(true);
                     break;
                 } 
-                else if (pickupTarget && !grabScript.heldItem)
+                else if (pickupTarget && !grabScript.holdingItem)
                 {
                     target = pickupTarget;
                     agent.destination = target.position;
@@ -137,7 +160,7 @@ public class EnemyController : NetworkBehaviour
                     enemyState = defaultState;
                     break;
                 }
-                else if (target.gameObject.layer != LayerMask.NameToLayer("Player") || grabScript.heldItem == null)
+                else if (target.gameObject.layer != LayerMask.NameToLayer("Player") || !grabScript.holdingItem)
                 {
                     target = null;
                     enemyState = defaultState;
@@ -160,7 +183,7 @@ public class EnemyController : NetworkBehaviour
                 }
                 else if (Vector3.Distance(transform.position, target.position) > interactDist + 1 
                     || target.gameObject.layer != LayerMask.NameToLayer("Player") 
-                    || grabScript.heldItem == null || !target.gameObject.activeInHierarchy)
+                    || !grabScript.holdingItem || !target.gameObject.activeInHierarchy)
                 {
                     target = null;
                     enemyState = defaultState;
@@ -187,11 +210,15 @@ public class EnemyController : NetworkBehaviour
 
     public void ReceiveDamage(float amount)
     {
-        if (!IsSpawned) return;
+        if (!IsSpawned || isInvincible) return;
 
         if ((health -= amount) <= 0.0f)
         {
             Despawn();
+        } else
+        {
+            SetEnemyHealthShown(true);
+            UpdateHealthBar();
         }
     }
 
@@ -238,6 +265,22 @@ public class EnemyController : NetworkBehaviour
         return null;
     }
 
+    private void SetEnemyHealthShown(bool enabled)
+    {
+        if (enemyCanvas != null)
+        {
+            enemyCanvas.gameObject.SetActive(enabled);
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        if(healthBarFill != null)
+        {
+            healthBarFill.fillAmount = (health / healthMax);
+        }
+    }
+
     // plays the footstep audio set up in wwise. CASE SENSITIVE -- "Footsteps"
     private void PlayFootstepAudio()
     {
@@ -252,7 +295,7 @@ public class EnemyController : NetworkBehaviour
 
     private bool IsMoving()
     {
-        return agent.pathPending;
+        return agent.velocity.sqrMagnitude > 0;
     }
 
     private void HandleAnimation()
@@ -273,14 +316,49 @@ public class EnemyController : NetworkBehaviour
 
     private void OnTriggerEnter(Collider coll)
     {
-        if (coll.tag == "Weapon")
+        if (coll.tag == "Weapon" && !isInvincible)
         {
             PickUpItem item = coll.GetComponentInParent<PickUpItem>();
             MeleeWeapon weapon = coll.GetComponentInParent<MeleeWeapon>();
             if(grabScript.heldItem != item && weapon)
             {
                 ReceiveDamage(weapon.damage);
+
+                //Set invincible and knockback
+                isInvincible = true;
+                if (knockbackCoroutine != null)
+                    StopCoroutine(knockbackCoroutine);
+
+                knockbackCoroutine = KnockbackNavMesh(-(coll.transform.position - transform.position).normalized);
+                StartCoroutine(knockbackCoroutine);
             }
         }
+    }
+
+    private IEnumerator KnockbackNavMesh(Vector3 dirOfTrigger)
+    {
+
+        agent.enabled = false;
+        rigidBody.isKinematic = false;
+        capsuleCollider.isTrigger = false;
+
+        // And finally we add force in the direction of dir and multiply it by force. 
+        // This will push back the player
+        rigidBody.AddForce(new Vector3(dirOfTrigger.x, 1, dirOfTrigger.z) * 500);
+
+        yield return new WaitForSeconds(0.1f);
+
+        while (rigidBody.velocity.magnitude > 1f)
+        {
+            yield return null;
+        }
+
+        rigidBody.isKinematic = true;
+        capsuleCollider.isTrigger = true;
+        isInvincible = false;
+
+        yield return new WaitForSeconds(0.1f);
+
+        agent.enabled = true;
     }
 }

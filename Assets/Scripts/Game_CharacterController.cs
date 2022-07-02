@@ -17,9 +17,10 @@ public class Game_CharacterController : NetworkBehaviour
     public float health;
     [SyncVar]
     public Player controllingPlayer;
-    public GrabScript grabScript;
-    public Animator animator;
-    public Vector3 impact = Vector3.zero;
+
+    [HideInInspector] public GrabScript grabScript;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public Vector3 impact = Vector3.zero;
     #endregion
 
     #region Serialized.
@@ -39,6 +40,7 @@ public class Game_CharacterController : NetworkBehaviour
 
     #region Private.
     // Variables to store setter/getter parameter IDs (such as strings) for performance optimization.
+    public bool isJumping;
     private int isWalkingHash, isRunningHash;
     private ControllerInput ctrlInput;
     private CharacterController _characterController;
@@ -68,45 +70,52 @@ public class Game_CharacterController : NetworkBehaviour
         // consumes the impact energy each cycle:
         impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
 
-        if (disableMovement) return;
+        //Update holding item in animator (only melee for now)
+        animator.SetBool("equipMelee", grabScript.holdingItem);
 
-        float speed = ctrlInput.runPressed ? runSpeed : walkSpeed;
-
-        //Set animation
-        animator.SetBool(isWalkingHash, ctrlInput.input != Vector2.zero && !ctrlInput.runPressed);
-        animator.SetBool(isRunningHash, ctrlInput.runPressed);
-        if(animator.GetBool(isWalkingHash) || animator.GetBool(isRunningHash))
-            PlayFootstepAudio();
-
-        //Movement
-        Vector3 desiredVelocity = Vector3.zero;
-        if (ctrlInput.input != Vector2.zero)
+        if (!disableMovement)
         {
-            Vector3 forward = ctrlInput.camForward;
-            Vector3 right = ctrlInput.camRight;
-            desiredVelocity = Vector3.ClampMagnitude(((forward * ctrlInput.input.y) + (right * ctrlInput.input.x)) * speed, speed);
-            desiredVelocity.y = 0;
-            transform.rotation = Quaternion.LookRotation(desiredVelocity.normalized);
-        }
+            float speed = ctrlInput.runPressed ? runSpeed : walkSpeed;
 
-        velocity.x = desiredVelocity.x;
-        velocity.z = desiredVelocity.z;
+            //Set animation
+            animator.SetBool(isWalkingHash, ctrlInput.input != Vector2.zero && !ctrlInput.runPressed);
+            animator.SetBool(isRunningHash, ctrlInput.runPressed);
+            if (animator.GetBool(isWalkingHash) || animator.GetBool(isRunningHash))
+                PlayFootstepAudio();
 
-        if(_characterController.isGrounded)
-        {
-            velocity.y = 0.0f;
-            
-            if(ctrlInput.jump)
+            //Movement
+            Vector3 desiredVelocity = Vector3.zero;
+            if (ctrlInput.input != Vector2.zero)
             {
-                velocity.y = jumpHeight;
-                ctrlInput.HasJumped();
+                Vector3 forward = ctrlInput.camForward;
+                Vector3 right = ctrlInput.camRight;
+                desiredVelocity = Vector3.ClampMagnitude(((forward * ctrlInput.input.y) + (right * ctrlInput.input.x)) * speed, speed);
+                desiredVelocity.y = 0;
+                transform.rotation = Quaternion.LookRotation(desiredVelocity.normalized);
             }
 
+            velocity.x = desiredVelocity.x;
+            velocity.z = desiredVelocity.z;
+
+            if (_characterController.isGrounded)
+            {
+                velocity.y = 0.0f;
+
+                if (isJumping)
+                    isJumping = false;
+                else if (ctrlInput.jumpPressed)
+                {
+                    velocity.y = jumpHeight;
+                    ctrlInput.jumpPressed = false;
+                    isJumping = true;
+                    animator.SetBool("IsJumping", isJumping);
+                }
+
+            }
         }
-        else
-        {
+
+        if (!_characterController.isGrounded)
             velocity.y += Physics.gravity.y * gravityScale * Time.deltaTime;
-        }
 
         _characterController.Move(velocity * Time.deltaTime);
     }
@@ -128,6 +137,11 @@ public class Game_CharacterController : NetworkBehaviour
         dir.Normalize();
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
         impact += dir.normalized * force / mass;
+    }
+
+    public void ClearVelocity()
+    {
+        velocity = Vector2.zero;
     }
 
     // plays the footstep audio set up in wwise. CASE SENSITIVE -- "Footsteps"

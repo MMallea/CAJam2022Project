@@ -7,55 +7,60 @@ using UnityEngine.InputSystem;
 
 public class GrabScript : NetworkBehaviour
 {
-    [SerializeField]
-    private Transform handTransform;
-    [SerializeField]
-    private InputActionReference grabControl;
-    [SerializeField]
-    private InputActionReference releaseControl;
+    [Header("Default")]
+    public GameObject defaultEquipped;
+
+    [SyncVar]
+    public bool holdingItem;
     [HideInInspector]
     public PickUpItem heldItem;
+    [SerializeField]
+    private Transform handTransform;
+    private ControllerInput ctrlInput;
 
     private CameraController cameraController;
 
-    private void Start()
+    public override void OnStartNetwork()
     {
+        base.OnStartNetwork();
+
         cameraController = GetComponent<CameraController>();
+        ctrlInput = GetComponent<ControllerInput>();
+    }
 
-        if(grabControl)
+    public void Start()
+    {
+        //Spawn defaultEquipped as equipped
+        //if (defaultEquipped != null)
+        //{
+        //    GameObject defaultPrefab = Instantiate(defaultEquipped, Vector3.zero, Quaternion.identity, null);
+        //    PickUpItem defaultItem = defaultEquipped.GetComponent<PickUpItem>();
+        //    if (defaultItem != null)
+        //        GrabItem(defaultItem);
+        //}
+    }
+
+    private void Update()
+    {
+        if (ctrlInput == null) return;
+
+        if (ctrlInput.grabPressed)
         {
-            grabControl.action.started += context =>
-            {
-                if (heldItem == null)
-                    CheckIfHitItem();
-                else
-                    UseItem();
-            };
+            if (!holdingItem)
+                CheckIfHitItem();
+            else
+                UseItem();
+
+            ctrlInput.grabPressed = false;
         }
 
-        if(releaseControl)
+        if (ctrlInput.releasePressed)
         {
-            releaseControl.action.started += context => {
-                if (heldItem != null)
-                    DropOffItem();
-            };
+            if (heldItem != null)
+                DropOffItem();
+
+            ctrlInput.releasePressed = false;
         }
-    }
-
-    private void OnEnable()
-    {
-        if (grabControl) grabControl.action.Enable();
-        if (releaseControl) releaseControl.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        if (grabControl) grabControl.action.Disable();
-        if (releaseControl) releaseControl.action.Disable();
-    }
-
-    private void FixedUpdate()
-    {
     }
 
     private void CheckIfHitItem()
@@ -84,7 +89,7 @@ public class GrabScript : NetworkBehaviour
     public void GrabItem(PickUpItem item)
     {
         heldItem = item;
-        Debug.Log(gameObject.name);
+        holdingItem = true;
         heldItem.SetPickedUp(gameObject, handTransform);
     }
 
@@ -92,5 +97,6 @@ public class GrabScript : NetworkBehaviour
     {
         heldItem.RemovePickedUp(gameObject);
         heldItem = null;
+        holdingItem = false;
     }
 }

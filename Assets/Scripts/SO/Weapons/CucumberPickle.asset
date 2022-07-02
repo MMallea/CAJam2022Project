@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CucumberPickle
   m_EditorClassIdentifier: 
   damage: 1
+  speed: 0
+  durability: 5
   weaponName: Cucumber?
   weaponMesh: {fileID: -5446136294724587800, guid: 6153f2f78eb877944817d2538dcc1fd2, type: 3}
   weaponMaterials:

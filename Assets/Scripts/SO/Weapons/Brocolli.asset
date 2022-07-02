@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Brocolli
   m_EditorClassIdentifier: 
   damage: 1
+  speed: 0
+  durability: 10
   weaponName: Brocolli
   weaponMesh: {fileID: -5538994835381136387, guid: 96075a3b7024fef4390be25dea816994, type: 3}
   weaponMaterials:

@@ -42,8 +42,6 @@ public class MeleeWeapon : Weapon
         if (timeUntilNextShot <= 0.0f)
         {
             isFiring = true;
-            SetPlayerMovementOnStrike(equippedByUser, true);
-            timeUntilNextShot = attackDelay;
         }
     }
 
@@ -95,7 +93,9 @@ public class MeleeWeapon : Weapon
         if (equippedByUser != null)
         {
             Animator userAnim = equippedByUser.GetComponentInChildren<Animator>();
-            userAnim.SetInteger("MeleeAttack", next);
+            userAnim.SetInteger("interactNum", next);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isRunning", false);
         }
     }
 
@@ -109,11 +109,13 @@ public class MeleeWeapon : Weapon
 
             int meleeAttack = animator.GetInteger("Attack") + 1;
             if (meleeAttack > 2)
-                meleeAttack = 0;
+                meleeAttack = 1;
 
             strikeNum = meleeAttack;
+            timeUntilNextShot = attackDelay * strikeNum;
             isHarmful = true;
             isFiring = false;
+            if(equippedByUser != null && meleeAttack != 0) SetPlayerMovementOnStrike(equippedByUser, true);
         }
     }
 
@@ -128,8 +130,12 @@ public class MeleeWeapon : Weapon
             playerController.disableMovement = enabled;
             if (enabled)
             {
+                Vector3 transformForward = Camera.main != null ? new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z) : playerController.transform.forward;
+                playerController.transform.forward = transformForward;
+
+                playerController.ClearVelocity();
                 //Add strike force
-                playerController.AddImpact(playerController.gameObject.transform.forward, 40);
+                playerController.AddImpact(transformForward, 40);
             }
         }
     }
