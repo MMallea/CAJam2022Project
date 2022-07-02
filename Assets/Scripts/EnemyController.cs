@@ -325,12 +325,15 @@ public class EnemyController : NetworkBehaviour
                 ReceiveDamage(weapon.damage);
 
                 //Set invincible and knockback
-                isInvincible = true;
-                if (knockbackCoroutine != null)
-                    StopCoroutine(knockbackCoroutine);
+                if(gameObject.activeInHierarchy)
+                {
+                    isInvincible = true;
+                    if (knockbackCoroutine != null)
+                        StopCoroutine(knockbackCoroutine);
 
-                knockbackCoroutine = KnockbackNavMesh(-(coll.transform.position - transform.position).normalized);
-                StartCoroutine(knockbackCoroutine);
+                    knockbackCoroutine = KnockbackNavMesh(-(coll.transform.position - transform.position).normalized);
+                    StartCoroutine(knockbackCoroutine);
+                }
             }
         }
     }
