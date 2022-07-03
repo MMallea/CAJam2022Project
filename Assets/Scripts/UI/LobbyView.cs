@@ -17,16 +17,7 @@ public class LobbyView : View
     public override void Initialize()
     {
         toggleReadyButton.onClick.AddListener(() => Player.Instance.ServerSetIsReady(!Player.Instance.isReady));
-
-        if(InstanceFinder.IsHost)
-        {
-            startGameButton.onClick.AddListener(() => GameManager.Instance.StartGame());
-            startGameButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            startGameButton.gameObject.SetActive(false);
-        }
+        startGameButton.gameObject.SetActive(false);
 
         base.Initialize();
     }

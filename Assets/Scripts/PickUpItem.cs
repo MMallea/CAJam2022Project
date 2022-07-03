@@ -9,6 +9,8 @@ public class PickUpItem : NetworkBehaviour
 {
     [SyncVar(OnChange = nameof(SetVariablesPickedUp))]
     public bool isPickedUp;
+    [SyncVar]
+    public bool isPickedUpPrev;
 
     public int throwSpeed = 2;
 
@@ -42,6 +44,13 @@ public class PickUpItem : NetworkBehaviour
         {
             RemovePickedUp(userObj);
         }
+
+        //OnChange not working
+        if(isPickedUp != isPickedUpPrev)
+        {
+            SetVariablesPickedUp(isPickedUpPrev, isPickedUp, IsServer);
+            isPickedUpPrev = isPickedUp;
+        }
     }
 
     public void Use(GameObject uObj)
@@ -74,8 +83,6 @@ public class PickUpItem : NetworkBehaviour
 
     private void SetVariablesPickedUp(bool prev, bool next, bool isServer)
     {
-        Debug.Log(transform.name);
-
         if (next)
         {
             if (!rBody.isKinematic)

@@ -19,6 +19,8 @@ public class Player : NetworkBehaviour
     public string username;
     [SyncVar]
     public Game_CharacterController controlledCharacter;
+
+    public GameObject controllerPrefab;
     #endregion
 
     public override void OnStartClient()
@@ -38,6 +40,7 @@ public class Player : NetworkBehaviour
         base.OnStartServer();
 
         GameManager.Instance.players.Add(this);
+        Debug.Log("Player Add Player Count: " + GameManager.Instance.players.Count);
     }
 
     public override void OnStopServer()
@@ -45,6 +48,7 @@ public class Player : NetworkBehaviour
         base.OnStopServer();
 
         GameManager.Instance.players.Remove(this);
+        Debug.Log("Player Add Player Count: " + GameManager.Instance.players.Count);
     }
 
     // Update is called once per frame
@@ -57,7 +61,8 @@ public class Player : NetworkBehaviour
 
     public void StartGame()
     {
-        GameObject controllerPrefab = Addressables.LoadAssetAsync<GameObject>("PlayerController").WaitForCompletion();
+        Debug.Log("Player Starting To Create Controller");
+        //GameObject controllerPrefab = Addressables.LoadAssetAsync<GameObject>("PlayerController").WaitForCompletion();
 
         GameObject controllerInstance = Instantiate(controllerPrefab);
 

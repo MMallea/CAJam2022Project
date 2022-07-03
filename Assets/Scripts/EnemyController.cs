@@ -93,7 +93,7 @@ public class EnemyController : NetworkBehaviour
 
     private void Update()
     {
-        if (!agent.enabled)
+        if (agent == null || !agent.enabled)
             return;
 
         HandleAnimation();

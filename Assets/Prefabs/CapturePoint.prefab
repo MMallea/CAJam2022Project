@@ -78,8 +78,8 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 1108523656997659975}
   SceneTransformProperties:
-    Position: {x: 28.29, y: 0.21, z: -26.59}
-    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Position: {x: -53.5, y: -3.07, z: -29.86}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
@@ -5258,7 +5258,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0

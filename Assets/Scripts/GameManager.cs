@@ -15,6 +15,8 @@ public class GameManager : NetworkBehaviour
     [SyncVar]
     public bool canStart;
     [SyncVar]
+    public bool gameStarted;
+    [SyncVar]
     public int capturedPointCount = 0;
     public int totalPointsToCapture = 3;
 
@@ -38,6 +40,11 @@ public class GameManager : NetworkBehaviour
         if (!IsServer) return;
 
         canStart = players.All(players => players.isReady);
+        if (players.Count > 0 && canStart && !gameStarted)
+        {
+            StartGame();
+            gameStarted = true;
+        }
     }
 
     [Server]
@@ -47,6 +54,7 @@ public class GameManager : NetworkBehaviour
 
         for(int i = 0; i < players.Count; i++)
         {
+            Debug.Log("Starting Player " + i);
             players[i].StartGame();
         }
     }
@@ -66,7 +74,7 @@ public class GameManager : NetworkBehaviour
         capturedPointCount++;
         if(capturedPointCount == totalPointsToCapture)
         {
-            if (endExitPoint) endExitPoint.SetExitShown(true);
+            if (endExitPoint) endExitPoint.exitActive = true;
         }
     }
 }
