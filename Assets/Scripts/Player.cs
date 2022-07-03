@@ -40,7 +40,7 @@ public class Player : NetworkBehaviour
         base.OnStartServer();
 
         GameManager.Instance.players.Add(this);
-        Debug.Log("Player Add Player Count: " + GameManager.Instance.players.Count);
+        username = GameManager.Instance.GetDefaultUsername();
     }
 
     public override void OnStopServer()
@@ -48,7 +48,6 @@ public class Player : NetworkBehaviour
         base.OnStopServer();
 
         GameManager.Instance.players.Remove(this);
-        Debug.Log("Player Add Player Count: " + GameManager.Instance.players.Count);
     }
 
     // Update is called once per frame

@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: f72d86280156a8e48a6b576a8fb0dd11
   - enabled: 1
-    path: Assets/Scenes/DevScenes/MannyScene.unity
-    guid: b52d4e5de6df0264a9c3387b450a3e67
+    path: Assets/Scenes/EnvironmentScene.unity
+    guid: 827388a25d89d194fbdefab4eaacfedf
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 9ea43eed1f0c42b4bbe770a0b294df24, type: 2}

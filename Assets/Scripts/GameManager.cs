@@ -18,6 +18,8 @@ public class GameManager : NetworkBehaviour
     public bool gameStarted;
     [SyncVar]
     public int capturedPointCount = 0;
+    [SyncVar]
+    public int usernameIndex = 0;
     public int totalPointsToCapture = 3;
 
     [Header("References")]
@@ -45,6 +47,12 @@ public class GameManager : NetworkBehaviour
             StartGame();
             gameStarted = true;
         }
+    }
+
+    public string GetDefaultUsername()
+    {
+        usernameIndex++;
+        return "Player " + usernameIndex;
     }
 
     [Server]

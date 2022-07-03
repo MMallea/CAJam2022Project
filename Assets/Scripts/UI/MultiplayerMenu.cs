@@ -15,6 +15,9 @@ public class MultiplayerMenu : MonoBehaviour
     [SerializeField]
     private Button connectButton;
 
+    [SerializeField]
+    private Button quitButton;
+
     private void Start()
     {
         #if UNITY_EDITOR
@@ -27,12 +30,12 @@ public class MultiplayerMenu : MonoBehaviour
             }
 
             InstanceFinder.ServerManager.StartConnection();
-            InstanceFinder.ServerManager.StartConnection();
             InstanceFinder.ClientManager.StartConnection();
         });
         hostButton.gameObject.SetActive(true);
         #endif
 
         connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+        quitButton.onClick.AddListener(() => Application.Quit());
     }
 }

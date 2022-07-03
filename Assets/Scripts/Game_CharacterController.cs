@@ -15,6 +15,8 @@ public class Game_CharacterController : NetworkBehaviour
     #region Public.
     public bool disableMovement;
     [SyncVar]
+    public bool updatedUsername;
+    [SyncVar]
     public float health;
     [SyncVar]
     public Player controllingPlayer;
@@ -98,6 +100,12 @@ public class Game_CharacterController : NetworkBehaviour
     {
         if (!IsOwner) return;
 
+        if(!updatedUsername && controllingPlayer != null)
+        {
+            UpdateUsernameUI(controllingPlayer.username);
+            updatedUsername = true;
+        }
+
         //Add impact
         if (impact.magnitude > 0.2) _characterController.Move(impact * Time.deltaTime);
         // consumes the impact energy each cycle:
@@ -135,6 +143,12 @@ public class Game_CharacterController : NetworkBehaviour
             Weapon weapon = grabScript.heldItem.GetComponent<Weapon>();
             if (playerUI) playerUI.UpdateWeaponDurability(weapon.durability);
         }
+    }
+
+    public void UpdateUsernameUI(string newName)
+    {
+        Debug.Log("Username UI: " + newName);
+        if (playerUI) playerUI.UpdateUsername(newName);
     }
 
     public void AddImpact(Vector3 dir, float force)
