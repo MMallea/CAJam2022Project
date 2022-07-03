@@ -1,10 +1,16 @@
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ExitPoint : MonoBehaviour
+public class ExitPoint : NetworkBehaviour
 {
+    [SyncVar]
+    public bool exitActive;
+    public bool exitActivePrev;
+
     public Light exitLight;
     public ParticleSystem exitParticles;
     public CapsuleCollider exitCollider;
@@ -26,6 +32,12 @@ public class ExitPoint : MonoBehaviour
             //Exit and end game
             UIManager.Instance.Show<GameOverView>();
             GameManager.Instance.StopGame();
+        }
+
+        if(exitActive != exitActivePrev)
+        {
+            SetExitShown(exitActive);
+            exitActivePrev = exitActive;
         }
     }
 

@@ -76,4 +76,9 @@ public class CharacterUI : MonoBehaviour
         if (healthText) healthText.enabled = enabled;
         if (healthFliar) healthFliar.enabled = enabled;
     }
+
+    public void UpdateUsername(string newName)
+    {
+        if (nameText) nameText.text = newName;
+    }
 }

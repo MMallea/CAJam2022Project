@@ -6,17 +6,30 @@ using UnityEngine;
 
 public class MeleeWeapon : Weapon
 {
-    [SyncVar(OnChange = nameof(TriggerFiring))]
+
+    //    [SyncVar(OnChange = nameof(TriggerFiring))]
+    [SyncVar]
     private bool isFiring;
+    [SyncVar]
+    private bool isFiringPrev;
 
-    [SyncVar(OnChange = nameof(SetHarmful))]
+    //    [SyncVar(OnChange = nameof(SetHarmful))]
+    [SyncVar]
     private bool isHarmful;
+    [SyncVar]
+    private bool isHarmfulPrev;
 
-    [SyncVar(OnChange = nameof(SetAnimatorEnabled))]
+    //    [SyncVar(OnChange = nameof(SetAnimatorEnabled))]
+    [SyncVar]
     private bool isAnimatorEnabled = false;
+    [SyncVar]
+    private bool isAnimatorEnabledPrev = false;
 
-    [SyncVar(OnChange = nameof(SetStrikeNum))]
+    //    [SyncVar(OnChange = nameof(SetStrikeNum))]
+    [SyncVar]
     private int strikeNum;
+    [SyncVar]
+    private int strikeNumPrev;
 
     private GameObject equippedByUser;
     private BoxCollider collisionCollider;
@@ -34,6 +47,30 @@ public class MeleeWeapon : Weapon
             || animator.GetCurrentAnimatorStateInfo(0).IsName("Melee_Strike2_To_Idle")) && animator.GetInteger("Attack") != 0)
         {
             ResetAttackingAnim();
+        }
+
+        if(isFiring != isFiringPrev)
+        {
+            TriggerFiring(isFiringPrev, isFiring, IsServer);
+            isFiringPrev = isFiring;
+        }
+
+        if(isHarmful != isHarmfulPrev)
+        {
+            SetHarmful(isHarmfulPrev, isHarmful, IsServer);
+            isHarmfulPrev = isHarmful;
+        }
+
+        if(isAnimatorEnabled != isAnimatorEnabledPrev)
+        {
+            SetAnimatorEnabled(isAnimatorEnabledPrev, isAnimatorEnabled, IsServer);
+            isAnimatorEnabledPrev = isAnimatorEnabled;
+        }
+
+        if(strikeNum != strikeNumPrev)
+        {
+            SetStrikeNum(strikeNumPrev, strikeNum, IsServer);
+            strikeNumPrev = strikeNum;
         }
     }
 

@@ -1,3 +1,5 @@
+using FishNet;
+using FishNet.Transporting.Tugboat;
 using FishNet.Managing;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,12 +12,16 @@ public class GameOverView : View
     [SerializeField]
     private TMPro.TextMeshProUGUI endText;
     [SerializeField]
-    private Button exitButton;
+    private Button exitSceneButton;
+    [SerializeField]
+    private Button exitGameButton;
+
     public override void Initialize()
     {
         base.Initialize();
 
-        //exitButton.onClick.AddListener(() => );
+        exitSceneButton.onClick.AddListener(() => InstanceFinder.ClientManager.StopConnection());
+        exitGameButton.onClick.AddListener(() => Application.Quit());
     }
 
     public void Update()

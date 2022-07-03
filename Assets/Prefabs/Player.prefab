@@ -49,8 +49,10 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8563413196739237655}
   _networkObjectCache: {fileID: 8563413196739237655}
   isReady: 0
+  lives: 9
   username: 
   controlledCharacter: {fileID: 0}
+  controllerPrefab: {fileID: 4435745274448372506, guid: 5da6c989b7d6c2449bef28239c37f382, type: 3}
 --- !u!114 &8563413196739237655
 MonoBehaviour:
   m_ObjectHideFlags: 0
