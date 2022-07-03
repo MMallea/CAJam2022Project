@@ -14,6 +14,8 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public bool isReady;
     [SyncVar]
+    public int lives = 9;
+    [SyncVar]
     public string username;
     [SyncVar]
     public Game_CharacterController controlledCharacter;
@@ -88,7 +90,14 @@ public class Player : NetworkBehaviour
     [TargetRpc]
     public void TargetControllerKilled(NetworkConnection networkConnection)
     {
-        UIManager.Instance.Show<RespawnView>();
+        lives--;
+        if(lives <= 0)
+        {
+            UIManager.Instance.Show<GameOverView>();
+        } else
+        {
+            UIManager.Instance.Show<RespawnView>();
+        }
     }
 
     [TargetRpc]

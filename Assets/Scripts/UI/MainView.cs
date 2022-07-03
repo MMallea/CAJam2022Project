@@ -6,16 +6,20 @@ using UnityEngine;
 public class MainView : View
 {
     [SerializeField]
-    private TextMeshProUGUI healthText;
+    private TextMeshProUGUI capturedPoinText;
 
     public void Update()
     {
         if (!Initialized) return;
 
-        Player player = Player.Instance;
+        if (capturedPoinText == null) return;
 
-        if (player == null || player.controlledCharacter == null) return;
-
-        //healthText.text = "HP: " + player.controlledCharacter.health;
+        if(GameManager.Instance.capturedPointCount < GameManager.Instance.totalPointsToCapture)
+        {
+            capturedPoinText.text = GameManager.Instance.capturedPointCount + "/" + GameManager.Instance.totalPointsToCapture + " Zones Captured";
+        } else
+        {
+            capturedPoinText.text = "All zones captured! Head for the gate!";
+        }
     }
 }

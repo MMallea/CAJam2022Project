@@ -70,6 +70,12 @@ public abstract class Weapon : NetworkBehaviour
 
         if(durability == 0)
         {
+            //Drop item on grabber
+            GrabScript grabScript = item.userObj.GetComponent<GrabScript>();
+            if (grabScript)
+            {
+                grabScript.DropOffItem();
+            }
             Despawn();
         }
     }

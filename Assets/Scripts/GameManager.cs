@@ -14,11 +14,22 @@ public class GameManager : NetworkBehaviour
 
     [SyncVar]
     public bool canStart;
+    [SyncVar]
+    public int capturedPointCount = 0;
+    public int totalPointsToCapture = 3;
+
+    [Header("References")]
+    public ExitPoint endExitPoint;
 
     // Start is called before the first frame update
     void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        if (endExitPoint) endExitPoint.SetExitShown(false);
     }
 
     // Update is called once per frame
@@ -46,6 +57,16 @@ public class GameManager : NetworkBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             players[i].StopGame();
+        }
+    }
+
+    [Server]
+    public void IncrementCapturedPointCount()
+    {
+        capturedPointCount++;
+        if(capturedPointCount == totalPointsToCapture)
+        {
+            if (endExitPoint) endExitPoint.SetExitShown(true);
         }
     }
 }
