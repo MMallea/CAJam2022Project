@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<WwiseDocument Type="WorkUnit" ID="{AC37CE72-CD17-45B4-B49C-771309659776}" SchemaVersion="110">
+	<Queries>
+		<WorkUnit Name="Default Work Unit" ID="{AC37CE72-CD17-45B4-B49C-771309659776}" PersistMode="Standalone"/>
+=======
 <WwiseDocument Type="WorkUnit" ID="{EECB176C-BDBE-4D12-A241-A151304A8959}" SchemaVersion="103">
 	<Queries>
 		<WorkUnit Name="Default Work Unit" ID="{EECB176C-BDBE-4D12-A241-A151304A8959}" PersistMode="Standalone"/>
+>>>>>>> audio_v2
 	</Queries>
 </WwiseDocument>

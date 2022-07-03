@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<WwiseDocument Type="WorkUnit" ID="{A2D13011-4B3D-416A-8951-FCEFB8EE326C}" SchemaVersion="110">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{A2D13011-4B3D-416A-8951-FCEFB8EE326C}" PersistMode="Standalone"/>
+=======
 <WwiseDocument Type="WorkUnit" ID="{88D2EBA1-4EB5-4139-BCF4-1DA342E45C3B}" SchemaVersion="103">
 	<AudioObjects>
 		<WorkUnit Name="Default Work Unit" ID="{88D2EBA1-4EB5-4139-BCF4-1DA342E45C3B}" PersistMode="Standalone">
@@ -394,5 +399,6 @@
 				</SwitchContainer>
 			</ChildrenList>
 		</WorkUnit>
+>>>>>>> audio_v2
 	</AudioObjects>
 </WwiseDocument>

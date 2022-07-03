@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<WwiseDocument Type="WorkUnit" ID="{ED25F3DF-312A-44AF-BC9F-AA7876140A3F}" SchemaVersion="110">
+	<MixingSessions>
+		<WorkUnit Name="Default Work Unit" ID="{ED25F3DF-312A-44AF-BC9F-AA7876140A3F}" PersistMode="Standalone"/>
+=======
 <WwiseDocument Type="WorkUnit" ID="{82ADFA9D-7FFE-4217-88D8-165874BFE42D}" SchemaVersion="103">
 	<MixingSessions>
 		<WorkUnit Name="Default Work Unit" ID="{82ADFA9D-7FFE-4217-88D8-165874BFE42D}" PersistMode="Standalone"/>
+>>>>>>> audio_v2
 	</MixingSessions>
 </WwiseDocument>

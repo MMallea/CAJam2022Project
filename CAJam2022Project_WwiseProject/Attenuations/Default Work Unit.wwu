@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<WwiseDocument Type="WorkUnit" ID="{52398945-EC89-41A0-8215-D66949C3A220}" SchemaVersion="110">
+	<Attenuations>
+		<WorkUnit Name="Default Work Unit" ID="{52398945-EC89-41A0-8215-D66949C3A220}" PersistMode="Standalone"/>
+=======
 <WwiseDocument Type="WorkUnit" ID="{9A932419-05AA-4BD4-A9B6-5771301D1C15}" SchemaVersion="103">
 	<Attenuations>
 		<WorkUnit Name="Default Work Unit" ID="{9A932419-05AA-4BD4-A9B6-5771301D1C15}" PersistMode="Standalone"/>
+>>>>>>> audio_v2
 	</Attenuations>
 </WwiseDocument>

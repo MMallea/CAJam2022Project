@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<WwiseDocument Type="WorkUnit" ID="{C2A58D40-2EBC-40A2-80F7-90D35DE342E4}" SchemaVersion="110">
+	<VirtualAcoustics>
+		<WorkUnit Name="Default Work Unit" ID="{C2A58D40-2EBC-40A2-80F7-90D35DE342E4}" PersistMode="Standalone"/>
+=======
 <WwiseDocument Type="WorkUnit" ID="{F1870219-DB25-491E-AE44-41360E759E73}" SchemaVersion="103">
 	<VirtualAcoustics>
 		<WorkUnit Name="Default Work Unit" ID="{F1870219-DB25-491E-AE44-41360E759E73}" PersistMode="Standalone"/>
+>>>>>>> audio_v2
 	</VirtualAcoustics>
 </WwiseDocument>
